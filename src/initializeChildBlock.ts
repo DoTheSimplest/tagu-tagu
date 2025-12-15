@@ -12,19 +12,16 @@ export type ChildType =
 	| IfFlow
 	| SwitchFlow<any>;
 export function initializeChildBlock(element: Element, children: ChildType[]) {
-	for (const child of children) {
+	for (const child of resolveTextNode(children)) {
 		initializeChild(element, child);
 	}
 }
 
-function initializeChild(element: Element, child: ChildType) {
-	if (typeof child === "string" || child instanceof State) {
-		const textNode = document.createTextNode("");
-		element.appendChild(textNode);
-		applyStringOrState(child, (text) => {
-			textNode.textContent = text;
-		});
-	} else if (child instanceof ForMap) {
+function initializeChild(
+	element: Element,
+	child: ForMap<any> | IfFlow | SwitchFlow<any> | Node,
+) {
+	if (child instanceof ForMap) {
 		child.run(element);
 	} else if (child instanceof IfFlow) {
 		child.run(element);
