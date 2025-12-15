@@ -4,10 +4,7 @@ import type { State } from "./State";
 type EventListenerType<
 	TEventType2Event,
 	TEventType extends keyof TEventType2Event,
-> = (
-	event: TEventType2Event[TEventType],
-	// biome-ignore lint/suspicious/noExplicitAny: <Same as addEventListener>
-) => any;
+> = (event: TEventType2Event[TEventType]) => any;
 
 type EventListenerRecord<TEventType2Event> = {
 	[TEventType in keyof TEventType2Event]?:
@@ -77,7 +74,6 @@ function initializeStyle(
 	element: Element,
 	css: Record<string, string | State> | undefined,
 ) {
-	// biome-ignore lint/suspicious/noExplicitAny: <inevitable>
 	const style = (element as any).style;
 	if (!(style instanceof CSSStyleDeclaration)) return;
 

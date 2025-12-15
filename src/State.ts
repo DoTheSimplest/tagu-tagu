@@ -1,4 +1,3 @@
-// biome-ignore lint/suspicious/noExplicitAny: <T can be anything if it can be converted to string>
 export class State<T = any> {
 	#value: T;
 	constructor(value: T) {
@@ -9,7 +8,7 @@ export class State<T = any> {
 	set(value: T) {
 		this.#value = value;
 
-		this.#dispatch('change');
+		this.#dispatch("change");
 	}
 	#dispatch(event: string) {
 		this.#listeners.dispatchEvent(new Event(event));
@@ -21,7 +20,7 @@ export class State<T = any> {
 	}
 }
 
-type StateEventType = 'change';
+type StateEventType = "change";
 
 export function useState<T>(value: T) {
 	return new State<T>(value);
@@ -33,7 +32,7 @@ export function FromStates<T>(states: State[], createValue: () => T) {
 		result.set(createValue());
 	};
 	for (const state of states) {
-		state.on('change', update);
+		state.on("change", update);
 	}
 	return result;
 }
