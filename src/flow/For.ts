@@ -1,3 +1,4 @@
+import { getNextNodeSibling } from "../initializeChildBlock";
 import type { State } from "../State";
 import { ControlFlow } from "./ControlFlow";
 
@@ -60,8 +61,9 @@ export class ForMap<T> extends ControlFlow {
 				child.parentElement?.removeChild(child);
 			}
 
+			const next = getNextNodeSibling(this);
 			for (const model of this.list.get()) {
-				element.appendChild(model2View.get(model)!);
+				element.insertBefore(model2View.get(model)!, next);
 			}
 		};
 
