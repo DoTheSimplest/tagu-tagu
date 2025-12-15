@@ -44,14 +44,14 @@ describe(Select, () => {
 
 		Modify(document.body, { html: "" }, [
 			Select(
-				{
-					prop: { value: selectedValue },
-					on: { change: updateSelectedValue },
-				},
 				[
 					SelectOption({ prop: { value: "" } }, ["-- choose an item --"]),
 					For(items, (item) => SelectOption([item])),
 				],
+				{
+					prop: { value: selectedValue },
+					on: { change: updateSelectedValue },
+				},
 			),
 			Input({
 				attr: { value: newValue },
