@@ -1,6 +1,7 @@
-import { Div } from '../Elements';
-import type { State } from '../State';
-import type { SwitchSection } from './SwitchBlockState';
+import { Div } from "../Elements";
+import type { State } from "../State";
+import { ControlFlow } from "./ControlFlow";
+import type { SwitchSection } from "./SwitchBlockState";
 
 export function Switch<T>(
 	value: State<T>,
@@ -9,7 +10,7 @@ export function Switch<T>(
 ) {
 	return new SwitchFlow(value, sections, createDefault);
 }
-export class SwitchFlow<T> {
+export class SwitchFlow<T> extends ControlFlow {
 	#value: State<T>;
 	#sections: SwitchSection<T>[];
 	#createDefault?: () => Element;
@@ -19,6 +20,7 @@ export class SwitchFlow<T> {
 		sections: SwitchSection<T>[],
 		createDefault?: () => Element,
 	) {
+		super();
 		this.#value = value;
 		this.#sections = sections;
 		this.#createDefault = createDefault;
@@ -42,7 +44,7 @@ export class SwitchFlow<T> {
 				const newElement =
 					section?.show() ??
 					this.#createDefault?.() ??
-					Div({ css: { display: 'none' } }, ['Test']);
+					Div({ css: { display: "none" } }, ["Test"]);
 				value2Element.set(value, newElement);
 			}
 
@@ -57,6 +59,6 @@ export class SwitchFlow<T> {
 
 		update();
 
-		this.#value.on('change', update);
+		this.#value.on("change", update);
 	}
 }
