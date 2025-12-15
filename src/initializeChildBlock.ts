@@ -39,3 +39,12 @@ export function connectNeighbours(children: (Node | ControlFlow)[]) {
 		}
 	}
 }
+
+export function getNextNodeSibling(flow: ControlFlow) {
+	const next = flow.next;
+	if (next === null) return null;
+	if (next instanceof Node) return next;
+
+	if (next.nodes[0]) return next.nodes[0];
+	return getNextNodeSibling(next);
+}

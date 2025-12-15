@@ -3,6 +3,7 @@ import { Div, useState } from "../../src";
 import { ControlFlow } from "../../src/flow/ControlFlow";
 import {
 	connectNeighbours,
+	getNextNodeSibling,
 	resolveTextNode,
 } from "../../src/initializeChildBlock";
 
@@ -22,6 +23,10 @@ describe(resolveTextNode, () => {
 });
 
 class ControlFlowMock extends ControlFlow {
+	constructor(children: Node[] = []) {
+		super();
+		this.nodes = children;
+	}
 	run(_: Element) {}
 }
 describe(connectNeighbours, () => {
@@ -39,5 +44,39 @@ describe(connectNeighbours, () => {
 		assert(children[1] instanceof ControlFlow);
 		expect(children[1].prev).toBe(children[0]);
 		expect(children[1].next).toBe(null);
+	});
+});
+
+describe(getNextNodeSibling, () => {
+	it("null", () => {
+		const children = [new ControlFlowMock()];
+		connectNeighbours(children);
+		const actual = getNextNodeSibling(children[0] as ControlFlow);
+		expect(actual).toBe(null);
+	});
+
+	it("Node", () => {
+		const children = [new ControlFlowMock(), Div()];
+		connectNeighbours(children);
+		const actual = getNextNodeSibling(children[0] as ControlFlow);
+		expect(actual).toBe(children[1]);
+	});
+
+	it("ControlFlow with nodes", () => {
+		const children = [
+			new ControlFlowMock(),
+			new ControlFlowMock([Div(), Div()]),
+			Div(),
+		];
+		connectNeighbours(children);
+		const actual = getNextNodeSibling(children[0] as ControlFlow);
+		expect(actual).toBe((children[1] as ControlFlow).nodes[0]);
+	});
+
+	it("ControlFlow without nodes", () => {
+		const children = [new ControlFlowMock(), new ControlFlowMock(), Div()];
+		connectNeighbours(children);
+		const actual = getNextNodeSibling(children[0] as ControlFlow);
+		expect(actual).toBe(children[2]);
 	});
 });
