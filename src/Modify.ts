@@ -20,6 +20,7 @@ type $Record = Record<
 	ElementInitializer<Element, HTMLElementEventMap | SVGElementEventMap>
 >;
 
+type DataRecord = Record<string, ((value: any) => void) | any>;
 type ElementPropertyInitializer<TEventType2Event> = {
 	html?: string | State;
 	text?: string | State;
@@ -29,6 +30,7 @@ type ElementPropertyInitializer<TEventType2Event> = {
 	on?: EventListenerRecord<TEventType2Event>;
 	$?: $Record;
 	$$?: $Record;
+	data?: DataRecord;
 };
 
 export type ElementInitializer<
@@ -146,6 +148,30 @@ function initializeEventListeners<TEventType2Event>(
 	}
 }
 
+export const node2Data = new Map<Node, Record<string, any>>();
+export const node2DataCallbacks = new Map<
+	Node,
+	Record<string, (data: any) => void>
+>();
+function initializeData(element: Element, data: DataRecord | undefined) {
+	for (const key in data) {
+		const value = data[key];
+		if (typeof value === "function") {
+			if (!node2DataCallbacks.has(element)) {
+				node2DataCallbacks.set(element, {});
+			}
+			node2DataCallbacks.get(element)![key] = value;
+			const selfValue = node2Data.get(element)?.[key];
+			selfValue && value(selfValue);
+		} else {
+			if (!node2Data.has(element)) {
+				node2Data.set(element, {});
+			}
+			node2Data.get(element)![key] = value;
+		}
+	}
+}
+
 function initialize<TElement extends Element, TEventType2Event>(
 	element: TElement | null,
 	initializer: ElementInitializer<TElement, TEventType2Event>,
@@ -164,6 +190,7 @@ function initialize<TElement extends Element, TEventType2Event>(
 		initialize$(element, initializer.$);
 		initialize$$(element, initializer.$$);
 		initializeEventListeners(element, initializer.on);
+		initializeData(element, initializer.data);
 	}
 }
 

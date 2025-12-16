@@ -1,0 +1,21 @@
+import { assert, describe, it } from "vitest";
+import { Div } from "../src";
+
+describe("data", () => {
+	it("get data from self", () => {
+		let theme: string | undefined;
+		Div(
+			{
+				data: { theme: "dark" },
+			},
+			{
+				data: {
+					theme: (value: string) => {
+						theme = value;
+					},
+				},
+			},
+		);
+		assert.equal(theme, "dark");
+	});
+});
