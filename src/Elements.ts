@@ -126,7 +126,7 @@ export function table(...initializers: ElementInitializer<HTMLTableElement>[]) {
 	return Html("table", ...initializers);
 }
 
-export function TableBody(
+export function tbody(
 	...initializers: ElementInitializer<HTMLTableSectionElement>[]
 ) {
 	return Html("tbody", ...initializers);
