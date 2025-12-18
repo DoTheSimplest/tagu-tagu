@@ -102,7 +102,7 @@ export function video(...initializers: ElementInitializer<HTMLVideoElement>[]) {
 	return Html("video", ...initializers);
 }
 
-export function Image(...initializers: ElementInitializer<HTMLImageElement>[]) {
+export function img(...initializers: ElementInitializer<HTMLImageElement>[]) {
 	return Html("img", ...initializers);
 }
 
