@@ -1,10 +1,10 @@
 import { assert, describe, it } from "vitest";
-import { Div } from "../../src";
+import { div } from "../../src";
 
 describe("data", () => {
 	it("get data from self", () => {
 		let theme: string | undefined;
-		Div(
+		div(
 			{
 				data: { theme: "dark" },
 			},
@@ -21,12 +21,12 @@ describe("data", () => {
 
 	it("get data from parent", () => {
 		let theme: string | undefined;
-		Div(
+		div(
 			{
 				data: { theme: "dark" },
 			},
 			[
-				Div({
+				div({
 					data: {
 						theme: (value: string) => {
 							theme = value;
@@ -40,13 +40,13 @@ describe("data", () => {
 
 	it("get data from grand parent", () => {
 		let theme: string | undefined;
-		Div(
+		div(
 			{
 				data: { theme: "dark" },
 			},
 			[
-				Div([
-					Div({
+				div([
+					div({
 						data: {
 							theme: (value: string) => {
 								theme = value;
@@ -61,9 +61,9 @@ describe("data", () => {
 
 	it("get data from nearest ancestor", () => {
 		let theme: string | undefined;
-		Div({ data: { theme: "light" } }, [
-			Div({ data: { theme: "dark" } }, [
-				Div({
+		div({ data: { theme: "light" } }, [
+			div({ data: { theme: "dark" } }, [
+				div({
 					data: {
 						theme: (value: string) => {
 							theme = value;
@@ -77,8 +77,8 @@ describe("data", () => {
 
 	it("ignores callback if data isn't  set", () => {
 		let counter = 0;
-		Div([
-			Div({
+		div([
+			div({
 				data: {
 					theme: () => {
 						counter++;
@@ -91,8 +91,8 @@ describe("data", () => {
 
 	it("calls callback only once", () => {
 		let counter = 0;
-		Div({ data: { theme: "light" } }, [
-			Div(
+		div({ data: { theme: "light" } }, [
+			div(
 				{ data: { theme: "dark" } },
 				{
 					data: {
@@ -109,16 +109,16 @@ describe("data", () => {
 	it("supports multiple children", () => {
 		let theme1: string | undefined;
 		let theme2: string | undefined;
-		Div({ data: { theme: "dark" } }, [
-			Div([
-				Div({
+		div({ data: { theme: "dark" } }, [
+			div([
+				div({
 					data: {
 						theme: (value: string) => {
 							theme1 = value;
 						},
 					},
 				}),
-				Div({
+				div({
 					data: {
 						theme: (value: string) => {
 							theme2 = value;
@@ -133,8 +133,8 @@ describe("data", () => {
 
 	it("multiple callbacks", () => {
 		let counter = 0;
-		Div({ data: { theme: "dark" } }, [
-			Div(
+		div({ data: { theme: "dark" } }, [
+			div(
 				{
 					data: {
 						theme: () => {

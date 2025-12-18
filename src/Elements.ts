@@ -27,11 +27,11 @@ export function style(styles: Record<string, Record<string, string>>) {
 	]);
 }
 
-export function Div(...initializers: ElementInitializer<HTMLDivElement>[]) {
+export function div(...initializers: ElementInitializer<HTMLDivElement>[]) {
 	return Html("div", ...initializers);
 }
 export function FlexDiv(...initializers: ElementInitializer<HTMLDivElement>[]) {
-	return Div({ css: { display: "flex" } }, ...initializers);
+	return div({ css: { display: "flex" } }, ...initializers);
 }
 
 export function Input(...initializers: ElementInitializer<HTMLInputElement>[]) {

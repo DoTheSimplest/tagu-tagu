@@ -1,5 +1,5 @@
 import { assert, describe, expect, it } from "vitest";
-import { Div } from "../../src";
+import { div } from "../../src";
 import {
 	appendCallbacksRecord,
 	createDescendantCallbacks,
@@ -11,8 +11,8 @@ import {
 
 describe("internal cache data", () => {
 	it("has undefined for callbacks resolved", () => {
-		const element = Div({ data: { theme: "dark" } }, [
-			Div({ data: { theme: () => {} } }),
+		const element = div({ data: { theme: "dark" } }, [
+			div({ data: { theme: () => {} } }),
 		]);
 		assert(!nodeData.node2DescendantCallbacks.get(element));
 	});

@@ -1,24 +1,24 @@
 import { assert, describe, it } from "vitest";
-import { Div, Switch, useState } from "../../src";
+import { div, Switch, useState } from "../../src";
 
 describe(Switch, () => {
 	it("no element", () => {
 		const value = useState(0);
-		const element = Div([Switch(value, [{ case: -1, show: () => Div() }])]);
+		const element = div([Switch(value, [{ case: -1, show: () => div() }])]);
 		assert(!element.childNodes[0]);
 	});
 	it("show element", () => {
 		const value = useState(0);
-		const element = Div([Switch(value, [{ case: 0, show: () => Div() }])]);
+		const element = div([Switch(value, [{ case: 0, show: () => div() }])]);
 		assert(element.childNodes[0]);
 	});
 	it("default is called only once", () => {
 		const value = useState(0);
 		let counter = 0;
-		Div([
-			Switch(value, [{ case: 0, show: () => Div() }], () => {
+		div([
+			Switch(value, [{ case: 0, show: () => div() }], () => {
 				counter++;
-				return Div();
+				return div();
 			}),
 		]);
 		value.set(-1);

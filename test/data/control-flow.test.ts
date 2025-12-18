@@ -1,14 +1,14 @@
 import { assert, describe, it } from "vitest";
-import { Div, For, If, Switch, useState } from "../../src";
+import { div, For, If, Switch, useState } from "../../src";
 
 describe(`data with ${If.name}`, () => {
 	it(`calls callbacks when condition becomes true`, () => {
 		let theme1: string | undefined;
 		const condition = useState(false);
-		Div({ data: { theme: "dark" } }, [
-			Div([
+		div({ data: { theme: "dark" } }, [
+			div([
 				If(condition, () =>
-					Div({
+					div({
 						data: {
 							theme: (value: string) => {
 								theme1 = value;
@@ -26,13 +26,13 @@ describe(`data with ${If.name}`, () => {
 	it(`calls callbacks for \`else\` when condition becomes false`, () => {
 		let theme1: string | undefined;
 		const condition = useState(true);
-		Div({ data: { theme: "dark" } }, [
-			Div([
+		div({ data: { theme: "dark" } }, [
+			div([
 				If(
 					condition,
-					() => Div(),
+					() => div(),
 					() =>
-						Div({
+						div({
 							data: {
 								theme: (value: string) => {
 									theme1 = value;
@@ -52,13 +52,13 @@ describe(`data with ${Switch.name}`, () => {
 	it(`calls callbacks when value matches`, () => {
 		let theme: string | undefined;
 		const condition = useState(0);
-		Div({ data: { theme: "dark" } }, [
-			Div([
+		div({ data: { theme: "dark" } }, [
+			div([
 				Switch(condition, [
 					{
 						case: 2,
 						show: () =>
-							Div({
+							div({
 								data: {
 									theme: (value: string) => {
 										theme = value;
@@ -78,15 +78,15 @@ describe(`data with ${Switch.name}`, () => {
 		let theme: string | undefined;
 		let theme2: string | undefined;
 		const condition = useState(2);
-		Div({ data: { theme: "dark" } }, [
-			Div([
+		div({ data: { theme: "dark" } }, [
+			div([
 				Switch(
 					condition,
 					[
 						{
 							case: 2,
 							show: () =>
-								Div({
+								div({
 									data: {
 										theme: (value: string) => {
 											theme = value;
@@ -96,7 +96,7 @@ describe(`data with ${Switch.name}`, () => {
 						},
 					],
 					() =>
-						Div({
+						div({
 							data: {
 								theme: (value: string) => {
 									theme2 = value;
@@ -119,10 +119,10 @@ describe(`data with ${For.name}`, () => {
 		const themes = [] as string[];
 		const people = useState(["Newton", "Darwin"]);
 
-		Div({ data: { theme: "dark" } }, [
-			Div([
+		div({ data: { theme: "dark" } }, [
+			div([
 				For(people, () =>
-					Div({
+					div({
 						data: {
 							theme: (value: string) => {
 								themes.push(value);

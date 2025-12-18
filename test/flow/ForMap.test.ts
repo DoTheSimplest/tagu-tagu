@@ -1,9 +1,9 @@
-import { assert, describe, it } from 'vitest';
-import { Div, ForMap, useState } from '../../src';
+import { assert, describe, it } from "vitest";
+import { div, ForMap, useState } from "../../src";
 
 describe(ForMap, () => {
-	it('number objs to children', () => {
-		const parent = Div();
+	it("number objs to children", () => {
+		const parent = div();
 		const modelArray = [1, 2, 3].map((n) => ({ n })) as {
 			n: number;
 		}[];
@@ -12,12 +12,12 @@ describe(ForMap, () => {
 		forMap.run(parent);
 		assert.deepEqual(
 			[...parent.childNodes].map((n) => n.textContent),
-			['1', '2', '3'],
+			["1", "2", "3"],
 		);
 	});
 
-	it('sort', () => {
-		const parent = Div();
+	it("sort", () => {
+		const parent = div();
 		const modelArray = [1, 2, 3].map((n) => ({ n })) as {
 			n: number;
 		}[];
@@ -27,12 +27,12 @@ describe(ForMap, () => {
 		modelArrayState.set(modelArray.sort((a, b) => b.n - a.n));
 		assert.deepEqual(
 			[...parent.childNodes].map((n) => n.textContent),
-			['3', '2', '1'],
+			["3", "2", "1"],
 		);
 	});
 
-	it('add item', () => {
-		const parent = Div();
+	it("add item", () => {
+		const parent = div();
 		const modelArray = [1, 2, 3].map((n) => ({ n })) as {
 			n: number;
 		}[];
@@ -44,13 +44,13 @@ describe(ForMap, () => {
 		modelArrayState.set(modelArray);
 		assert.deepEqual(
 			[...parent.childNodes].map((n) => n.textContent),
-			['1', '2', '3', '4'],
+			["1", "2", "3", "4"],
 		);
 		assert.deepEqual([...parent.childNodes].slice(0, 3), initialChildNodes);
 	});
 
-	it('remove item', () => {
-		const parent = Div();
+	it("remove item", () => {
+		const parent = div();
 		const modelArray = [1, 2, 3].map((n) => ({ n })) as {
 			n: number;
 		}[];
@@ -61,12 +61,12 @@ describe(ForMap, () => {
 		modelArrayState.set(modelArray);
 		assert.deepEqual(
 			[...parent.childNodes].map((n) => n.textContent),
-			['1'],
+			["1"],
 		);
 	});
 
-	it('randomize item', () => {
-		const parent = Div();
+	it("randomize item", () => {
+		const parent = div();
 		const modelArray = [1, 2, 3].map((n) => ({ n })) as {
 			n: number;
 		}[];
@@ -77,7 +77,7 @@ describe(ForMap, () => {
 		modelArrayState.set([5, 9, 2].map((n) => ({ n })));
 		assert.deepEqual(
 			[...parent.childNodes].map((n) => n.textContent),
-			['5', '9', '2'],
+			["5", "9", "2"],
 		);
 	});
 });
