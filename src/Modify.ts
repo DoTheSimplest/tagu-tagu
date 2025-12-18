@@ -1,7 +1,7 @@
 import { type DataRecord, initializeData } from "./data/data";
 import { Binding } from "./data/useBinding";
 import { type ChildType, initializeChildBlock } from "./initializeChildBlock";
-import type { State } from "./State";
+import { FromStates, State } from "./State";
 
 type EventListenerType<
 	TEventType2Event,
@@ -86,7 +86,14 @@ function initializeStyle(
 			Modify(element, {
 				data: {
 					[value.key]: (data: any) => {
-						initializeStyle(element, { [propName]: value.map(data) });
+						const isState = data instanceof State;
+						const stringOrState = isState
+							? FromStates([data], () => value.map(data.get()))
+							: value.map(data);
+
+						applyStringOrState(stringOrState, (text) =>
+							style.setProperty(propName, text),
+						);
 					},
 				},
 			});
