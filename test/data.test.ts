@@ -6,7 +6,6 @@ import {
 	type DataRecord,
 	extractCallbackRecord,
 	extractDataValueRecord,
-	NodeData,
 } from "../src/data";
 
 describe("data", () => {
@@ -58,16 +57,6 @@ describe("data", () => {
 			}),
 		]);
 		assert.equal(counter, 0);
-	});
-});
-
-describe(NodeData, () => {
-	it.skip("descendant callbacks with single node", () => {
-		const nodes = [Div()];
-		const data = new NodeData();
-		const callback = () => {};
-		data.setCallbackRecord(nodes[0], { theme: [callback] });
-		assert(data.getDescendantCallbacks(nodes[0]));
 	});
 });
 
