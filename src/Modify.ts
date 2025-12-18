@@ -1,4 +1,5 @@
 import { type DataRecord, initializeData } from "./data/data";
+import { Binding } from "./data/useBinding";
 import { type ChildType, initializeChildBlock } from "./initializeChildBlock";
 import type { State } from "./State";
 
@@ -26,7 +27,7 @@ type ElementPropertyInitializer<TEventType2Event> = {
 	text?: string | State;
 	attr?: Record<string, string | State>;
 	prop?: Record<string, any | State>;
-	css?: Record<string, string | State>;
+	css?: Record<string, string | State | Binding>;
 	on?: EventListenerRecord<TEventType2Event>;
 	$?: $Record;
 	$$?: $Record;
@@ -74,14 +75,24 @@ function initializeText(element: Element, text: string | State | undefined) {
 
 function initializeStyle(
 	element: Element,
-	css: Record<string, string | State> | undefined,
+	css: Record<string, string | State | Binding> | undefined,
 ) {
 	const style = (element as any).style;
 	if (!(style instanceof CSSStyleDeclaration)) return;
 
 	for (const propName in css) {
 		const value = css[propName];
-		applyStringOrState(value, (text) => style.setProperty(propName, text));
+		if (value instanceof Binding) {
+			Modify(element, {
+				data: {
+					[value.key]: (data: any) => {
+						initializeStyle(element, { [propName]: value.map(data) });
+					},
+				},
+			});
+		} else {
+			applyStringOrState(value, (text) => style.setProperty(propName, text));
+		}
 	}
 }
 
