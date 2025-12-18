@@ -26,7 +26,7 @@ export class NodeData {
 
 	resolveCallbacks(element: Element, child: Node) {
 		/**
-		 * bubble up callbacks record until it reaches root.
+		 * Bubble up callbacks record until it reaches root.
 		 * if it finds data, call callbacks and remove them.
 		 * if it reaches root, append root callbacks
 		 */
@@ -49,7 +49,8 @@ export class NodeData {
 			// Callbacks resolved
 			if (!Object.keys(callbacksRecord).length) return;
 
-			// root
+			// Root
+			// append callbacks
 			if (!ancestor.parentElement) {
 				if (!this.node2DescendantCallbacks.has(ancestor)) {
 					this.node2DescendantCallbacks.set(ancestor, {});
