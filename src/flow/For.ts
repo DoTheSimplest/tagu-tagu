@@ -1,3 +1,4 @@
+import { nodeData } from "../data";
 import { getNextNodeSibling } from "../initializeChildBlock";
 import type { State } from "../State";
 import { ControlFlow } from "./ControlFlow";
@@ -43,6 +44,11 @@ export class ForMap<T> extends ControlFlow {
 				const mapped = this.map(item);
 				const resolved =
 					typeof mapped === "string" ? document.createTextNode(mapped) : mapped;
+
+				// data
+				nodeData.resolveCallbacks(element, resolved);
+
+				// To insert `item`
 				view2Model.set(resolved, item);
 				model2View.set(item, resolved);
 			}

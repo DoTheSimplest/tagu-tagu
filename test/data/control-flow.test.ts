@@ -1,5 +1,5 @@
 import { assert, describe, it } from "vitest";
-import { Div, If, Switch, useState } from "../../src";
+import { Div, For, If, Switch, useState } from "../../src";
 
 describe(`data with ${If.name}`, () => {
 	it(`calls callbacks when condition becomes true`, () => {
@@ -111,5 +111,30 @@ describe(`data with ${Switch.name}`, () => {
 		assert.equal(theme2, undefined);
 		condition.set(0);
 		assert.equal(theme2, "dark");
+	});
+});
+
+describe(`data with ${For.name}`, () => {
+	it(`calls callbacks new item is added`, () => {
+		const themes = [] as string[];
+		const people = useState(["Newton", "Darwin"]);
+
+		Div({ data: { theme: "dark" } }, [
+			Div([
+				For(people, () =>
+					Div({
+						data: {
+							theme: (value: string) => {
+								themes.push(value);
+							},
+						},
+					}),
+				),
+			]),
+		]);
+
+		assert.deepEqual(themes, ["dark", "dark"]);
+		people.set([...people.get(), "Einstein"]);
+		assert.deepEqual(themes, ["dark", "dark", "dark"]);
 	});
 });
