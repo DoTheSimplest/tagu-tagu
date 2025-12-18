@@ -54,9 +54,7 @@ export function br(...initializers: ElementInitializer<HTMLBRElement>[]) {
 	return Html("br", ...initializers);
 }
 
-export function TableRow(
-	...initializers: ElementInitializer<HTMLTableRowElement>[]
-) {
+export function tr(...initializers: ElementInitializer<HTMLTableRowElement>[]) {
 	return Html("tr", ...initializers);
 }
 
