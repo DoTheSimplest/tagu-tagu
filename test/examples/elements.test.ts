@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { h1, h2, h3, h4, h5, h6, Modify, p } from "../../src";
+import { h1, h2, h3, h4, h5, h6, Modify, p, section } from "../../src";
 
 describe("elements", () => {
 	it("<h1> - <h6>, <p>", () => {
@@ -11,6 +11,7 @@ describe("elements", () => {
 			h5("Hello <h5>"),
 			h6("Hello <h6>"),
 			p("Hello! It's <p>"),
+			section([p("<p> in <section>"), p("2nd <p>")]),
 		]);
 	});
 });

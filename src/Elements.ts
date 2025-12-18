@@ -23,6 +23,10 @@ export function p(...initializers: ElementInitializer<HTMLParagraphElement>[]) {
 	return Html("p", ...initializers);
 }
 
+export function section(...initializers: ElementInitializer<HTMLElement>[]) {
+	return Html("section", ...initializers);
+}
+
 export function button(
 	...initializers: ElementInitializer<HTMLButtonElement>[]
 ) {
