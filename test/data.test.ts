@@ -55,14 +55,14 @@ describe("data", () => {
 });
 
 describe(NodeData, () => {
-	it("", () => {
+	it("getDescendantCallbacks", () => {
 		const nodes = [Div(), Div()];
 
 		const data = new NodeData();
 		const callback = () => {};
 		data.setCallback(nodes[1], "theme", callback);
 		data.setData(nodes[0], "theme", "dark");
-		data.resolveDataCallback(nodes[0], nodes[1]);
+		data.resolveCallbacks(nodes[0], nodes[1]);
 		expect(data.getDescendantCallbacks(nodes[0])).toEqual({
 			theme: [callback],
 		});

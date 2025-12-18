@@ -20,7 +20,7 @@ export class NodeData {
 		return this.node2Data.get(element)?.[key];
 	}
 
-	resolveDataCallback(element: Element, child: Node) {
+	resolveCallbacks(element: Element, child: Node) {
 		for (const key in this.node2DataCallbacks.get(child)) {
 			const callback = this.node2DataCallbacks.get(child)![key];
 			const data = this.node2Data.get(element)?.[key];

@@ -17,7 +17,7 @@ function initializeChild(element: Element, child: ControlFlow | Node) {
 	if (child instanceof ControlFlow) {
 		child.run(element);
 	} else {
-		nodeData.resolveDataCallback(element, child);
+		nodeData.resolveCallbacks(element, child);
 		element.appendChild(child);
 	}
 }
