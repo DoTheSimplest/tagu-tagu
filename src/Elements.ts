@@ -98,7 +98,7 @@ export function audio(...initializers: ElementInitializer<HTMLAudioElement>[]) {
 	return Html("audio", ...initializers);
 }
 
-export function Video(...initializers: ElementInitializer<HTMLVideoElement>[]) {
+export function video(...initializers: ElementInitializer<HTMLVideoElement>[]) {
 	return Html("video", ...initializers);
 }
 
