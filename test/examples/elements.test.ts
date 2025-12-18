@@ -13,7 +13,7 @@ import {
 } from "../../src";
 
 describe("elements", () => {
-	it("<h1> - <h6>, <p>", () => {
+	it("<h1> - <h6>, <p>, <section>, <textarea>", () => {
 		Modify(document.body, { html: "" }, [
 			h1("Hello <h1>"),
 			h2("Hello <h2>"),
