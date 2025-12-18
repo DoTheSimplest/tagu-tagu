@@ -84,6 +84,7 @@ export function extractDataValueRecord(
 function extractRecordFromDataRecord(
 	record: DataRecord | undefined,
 	predicate: (value: any) => boolean,
+	map = (value: any) => value,
 ) {
 	if (!record) return;
 
@@ -91,11 +92,21 @@ function extractRecordFromDataRecord(
 	for (const key in record) {
 		const value = record[key];
 		if (predicate(value)) {
-			result[key] = value;
+			result[key] = map(value);
 		}
 	}
 
 	if (!Object.keys(result).length) return;
 
 	return result;
+}
+
+export function createDescendantCallbacks(
+	record: Record<string, (value: any) => void> | undefined,
+) {
+	return extractRecordFromDataRecord(
+		record,
+		() => true,
+		(value) => [value],
+	);
 }

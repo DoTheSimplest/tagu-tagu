@@ -1,6 +1,7 @@
 import { assert, describe, expect, it } from "vitest";
 import { Div } from "../src";
 import {
+	createDescendantCallbacks,
 	type DataRecord,
 	extractCallbackRecord,
 	extractDataValueRecord,
@@ -113,5 +114,18 @@ describe(extractDataValueRecord, () => {
 		const actual = extractDataValueRecord(record);
 		assert(actual);
 		expect(actual.callback).toBe(record.callback);
+	});
+});
+
+describe(createDescendantCallbacks, () => {
+	it("returns undefined if input is undefined", () => {
+		const actual = createDescendantCallbacks(undefined);
+		expect(actual).toBeUndefined();
+	});
+	it("creates record of array of callback", () => {
+		const record = { callback: () => {} };
+		const actual = createDescendantCallbacks(record);
+		assert(actual);
+		expect(actual.callback).toEqual([record.callback]);
 	});
 });
