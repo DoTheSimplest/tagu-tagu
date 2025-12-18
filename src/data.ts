@@ -1,4 +1,5 @@
-type DataCallback = (data: any) => void;
+export type DataCallback = (data: any) => void;
+
 export class NodeData {
 	node2Data = new WeakMap<Node, Record<string, any>>();
 
@@ -79,7 +80,7 @@ export class NodeData {
 	}
 }
 
-export type DataRecord = Record<string, ((value: any) => void) | any>;
+export type DataRecord = Record<string, DataCallback | any>;
 export const nodeData = new NodeData();
 export function initializeData(element: Element, data: DataRecord | undefined) {
 	nodeData.setCallbackRecord(element, extractCallbackRecord(data));
@@ -88,7 +89,7 @@ export function initializeData(element: Element, data: DataRecord | undefined) {
 
 export function extractCallbackRecord(
 	record: DataRecord | undefined,
-): Record<string, ((data: any) => void)[]> | undefined {
+): Record<string, DataCallback[]> | undefined {
 	return extractRecordFromDataRecord(
 		record,
 		(value) => typeof value === "function",
@@ -126,7 +127,7 @@ function extractRecordFromDataRecord(
 }
 
 export function createDescendantCallbacks(
-	record: Record<string, (value: any) => void> | undefined,
+	record: Record<string, DataCallback> | undefined,
 ) {
 	return extractRecordFromDataRecord(
 		record,
@@ -136,8 +137,8 @@ export function createDescendantCallbacks(
 }
 
 export function appendCallbacksRecord(
-	record1: Record<string, ((data: any) => void)[]>,
-	record2: Record<string, ((data: any) => void)[]> | undefined,
+	record1: Record<string, DataCallback[]>,
+	record2: Record<string, DataCallback[]> | undefined,
 ) {
 	for (const key in record2) {
 		if (!record1[key]) {
