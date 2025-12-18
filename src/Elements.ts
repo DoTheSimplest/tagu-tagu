@@ -1,6 +1,25 @@
 import type { ElementInitializer } from "./Modify";
 import { Html } from "./Tag";
 
+export function h1(...initializers: ElementInitializer<HTMLHeadingElement>[]) {
+	return Html("h1", ...initializers);
+}
+export function h2(...initializers: ElementInitializer<HTMLHeadingElement>[]) {
+	return Html("h2", ...initializers);
+}
+export function h3(...initializers: ElementInitializer<HTMLHeadingElement>[]) {
+	return Html("h3", ...initializers);
+}
+export function h4(...initializers: ElementInitializer<HTMLHeadingElement>[]) {
+	return Html("h4", ...initializers);
+}
+export function h5(...initializers: ElementInitializer<HTMLHeadingElement>[]) {
+	return Html("h5", ...initializers);
+}
+export function h6(...initializers: ElementInitializer<HTMLHeadingElement>[]) {
+	return Html("h6", ...initializers);
+}
+
 export function button(
 	...initializers: ElementInitializer<HTMLButtonElement>[]
 ) {
