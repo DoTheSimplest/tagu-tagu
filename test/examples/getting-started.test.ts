@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { button, FlexDiv, span, Style } from "../../src/Elements";
+import { button, FlexDiv, span, style } from "../../src/Elements";
 import { Modify } from "../../src/Modify";
 import { FromStates, useState } from "../../src/State";
 
@@ -49,7 +49,7 @@ describe("getting started", () => {
 					},
 				},
 				[
-					Style({
+					style({
 						".small": {
 							width: "100px",
 							height: "100px",

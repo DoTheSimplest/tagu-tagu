@@ -10,7 +10,7 @@ export function span(...initializers: ElementInitializer<HTMLSpanElement>[]) {
 	return Html("span", ...initializers);
 }
 
-export function Style(styles: Record<string, Record<string, string>>) {
+export function style(styles: Record<string, Record<string, string>>) {
 	function createStyleText(
 		selector: string,
 		properties: Record<string, string>,
