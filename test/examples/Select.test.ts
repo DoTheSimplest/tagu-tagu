@@ -57,8 +57,8 @@ describe(Select, () => {
 				attr: { value: newValue },
 				on: { input: updateValue },
 			}),
-			Button(["+"], { on: { click: addItem } }),
-			Button(["✖"], { on: { click: removeItem } }),
+			Button("+", { on: { click: addItem } }),
+			Button("✖", { on: { click: removeItem } }),
 		]);
 	});
 });
