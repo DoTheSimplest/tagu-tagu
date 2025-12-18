@@ -1,4 +1,4 @@
-import { nodeData } from "./data";
+import { nodeData } from "./data/data";
 import { ControlFlow } from "./flow/ControlFlow";
 import { applyStringOrState } from "./Modify";
 import { State } from "./State";

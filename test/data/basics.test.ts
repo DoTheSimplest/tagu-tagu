@@ -7,7 +7,7 @@ import {
 	extractCallbackRecord,
 	extractDataValueRecord,
 	nodeData,
-} from "../../src/data";
+} from "../../src/data/data";
 
 describe("internal cache data", () => {
 	it("has undefined for callbacks resolved", () => {

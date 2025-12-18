@@ -1,4 +1,4 @@
-import { nodeData } from "../data";
+import { nodeData } from "../data/data";
 import { getNextNodeSibling } from "../initializeChildBlock";
 import type { State } from "../State";
 import { ControlFlow } from "./ControlFlow";

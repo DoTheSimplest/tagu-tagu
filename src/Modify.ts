@@ -1,4 +1,4 @@
-import { type DataRecord, initializeData } from "./data";
+import { type DataRecord, initializeData } from "./data/data";
 import { type ChildType, initializeChildBlock } from "./initializeChildBlock";
 import type { State } from "./State";
 
