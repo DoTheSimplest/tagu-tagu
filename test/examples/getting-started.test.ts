@@ -19,7 +19,7 @@ describe("getting started", () => {
 
 		Modify(document.body, { html: "" }, [
 			Button("-", { on: { click: decrementCount } }),
-			Span([count]),
+			Span(count),
 			Button("+", { on: { click: incrementCount } }),
 		]);
 	});
