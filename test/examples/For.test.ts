@@ -1,16 +1,14 @@
-import { describe, it } from 'vitest';
-import { Button, FlexDiv, For, Modify, useState } from '../../src';
+import { describe, it } from "vitest";
+import { Button, FlexDiv, For, Modify, useState } from "../../src";
 
-describe('For', () => {
-	it('shows children from data', () => {
+describe("For", () => {
+	it("shows children from data", () => {
 		const numbers = useState([1, 2, 3]);
 
-		Modify(document.body, { html: '' }, [
-			For(numbers, (n) => Button([`${n}`])),
-		]);
+		Modify(document.body, { html: "" }, [For(numbers, (n) => Button(`${n}`))]);
 	});
 
-	it('adds and removes item', () => {
+	it("adds and removes item", () => {
 		const numbers = useState([1, 2, 3]);
 
 		function addNumber() {
@@ -21,7 +19,7 @@ describe('For', () => {
 			numbers.set(numbers.get().filter((value) => value !== n));
 		}
 
-		Modify(document.body, { html: '' }, [
+		Modify(document.body, { html: "" }, [
 			FlexDiv([
 				For(numbers, (n) =>
 					Button([`${n}`], {
@@ -29,7 +27,7 @@ describe('For', () => {
 					}),
 				),
 			]),
-			Button(['+'], { on: { click: addNumber } }),
+			Button("+", { on: { click: addNumber } }),
 		]);
 	});
 });
