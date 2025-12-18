@@ -130,4 +130,27 @@ describe("data", () => {
 		assert.equal(theme1, "dark");
 		assert.equal(theme2, "dark");
 	});
+
+	it("multiple callbacks", () => {
+		let counter = 0;
+		Div({ data: { theme: "dark" } }, [
+			Div(
+				{
+					data: {
+						theme: () => {
+							counter++;
+						},
+					},
+				},
+				{
+					data: {
+						theme: () => {
+							counter++;
+						},
+					},
+				},
+			),
+		]);
+		assert.equal(counter, 2);
+	});
 });

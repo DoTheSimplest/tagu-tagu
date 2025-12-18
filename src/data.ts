@@ -7,11 +7,14 @@ export class NodeData {
 		element: Element,
 		callbackRecord: Record<string, DataCallback[]> | undefined,
 	) {
-		if (callbackRecord) {
-			this.node2DescendantCallbacks.set(element, callbackRecord);
-			const dataRecord = this.node2Data.get(element);
-			resolveCallbacksByData(callbackRecord, dataRecord);
+		if (!callbackRecord) return;
+		if (!this.node2DescendantCallbacks.has(element)) {
+			this.node2DescendantCallbacks.set(element, {});
 		}
+		const originalCallbackRecord = this.node2DescendantCallbacks.get(element)!;
+		appendCallbacksRecord(originalCallbackRecord, callbackRecord);
+		const dataRecord = this.node2Data.get(element);
+		resolveCallbacksByData(originalCallbackRecord, dataRecord);
 	}
 
 	setDataRecord(element: Element, dataRecord: Record<string, any> | undefined) {
