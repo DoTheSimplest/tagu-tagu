@@ -35,8 +35,7 @@ export class NodeData {
 			ancestor: Element,
 			callbacksRecord: Record<string, DataCallback[]>,
 		) => {
-			const dataRecord = this.node2Data.get(ancestor);
-			resolveCallbacksByData(callbacksRecord, dataRecord);
+			resolveCallbacksByData(callbacksRecord, this.node2Data.get(ancestor));
 
 			// Callbacks resolved
 			if (!Object.keys(callbacksRecord).length) return;
