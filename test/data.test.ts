@@ -6,6 +6,7 @@ import {
 	type DataRecord,
 	extractCallbackRecord,
 	extractDataValueRecord,
+	nodeData,
 } from "../src/data";
 
 describe("data", () => {
@@ -94,6 +95,15 @@ describe("data", () => {
 			}),
 		]);
 		assert.equal(counter, 0);
+	});
+});
+
+describe("internal cache data", () => {
+	it("has undefined for callbacks resolved", () => {
+		const element = Div({ data: { theme: "dark" } }, [
+			Div({ data: { theme: () => {} } }),
+		]);
+		assert(!nodeData.node2DescendantCallbacks.get(element));
 	});
 });
 

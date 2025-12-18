@@ -46,6 +46,9 @@ export class NodeData {
 				}
 			}
 
+			// Callbacks resolved
+			if (!Object.keys(callbacksRecord).length) return;
+
 			// root
 			if (!ancestor.parentElement) {
 				if (!this.node2DescendantCallbacks.has(ancestor)) {
