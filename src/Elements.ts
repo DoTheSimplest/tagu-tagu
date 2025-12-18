@@ -64,6 +64,12 @@ export function input(...initializers: ElementInitializer<HTMLInputElement>[]) {
 	return Html("input", ...initializers);
 }
 
+export function textarea(
+	...initializers: ElementInitializer<HTMLTextAreaElement>[]
+) {
+	return Html("textarea", ...initializers);
+}
+
 export function select(
 	...initializers: ElementInitializer<HTMLSelectElement>[]
 ) {
