@@ -76,7 +76,7 @@ export function a(...initializers: ElementInitializer<HTMLAnchorElement>[]) {
 	return Html("a", ...initializers);
 }
 
-export function BlockQuote(
+export function blockquote(
 	...initializers: ElementInitializer<HTMLQuoteElement>[]
 ) {
 	return Html("blockquote", ...initializers);
