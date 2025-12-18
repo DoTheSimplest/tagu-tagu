@@ -3,7 +3,7 @@ export type DataCallback = (data: any) => void;
 export class NodeData {
 	node2Data = new WeakMap<Node, Record<string, any>>();
 
-	setCallbackRecord(
+	addCallbacks(
 		element: Element,
 		callbackRecord: Record<string, DataCallback[]> | undefined,
 	) {
@@ -84,7 +84,7 @@ function resolveCallbacksByData(
 export type DataRecord = Record<string, DataCallback | any>;
 export const nodeData = new NodeData();
 export function initializeData(element: Element, data: DataRecord | undefined) {
-	nodeData.setCallbackRecord(element, extractCallbackRecord(data));
+	nodeData.addCallbacks(element, extractCallbackRecord(data));
 	nodeData.setDataRecord(element, extractDataValueRecord(data));
 }
 
