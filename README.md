@@ -18,7 +18,7 @@ with reactivity!
 ```javascript
 import {button, span, div, useState} from "https://cdn.jsdelivr.net/npm/tagu-tagu@1.0.4/dist/bundle.min.js";
 
-function CounterDemo(){
+function CounterExample(){
     const count = useState(4);
 
     function decrementCount() {
@@ -35,7 +35,7 @@ function CounterDemo(){
     ])
 }
 
-document.body.appendChild(CounterDemo());
+document.body.appendChild(CounterExample());
 ```
 
 No need to compile. But typescript is supported.
@@ -57,7 +57,7 @@ button({css: {background: "blue"}}, "Hello!");
 ```typescript
 import { div, If, input, span, useState } from "tagu-tagu";
 
-function IfDemo() {
+function IfExample() {
 	const isVisible = useState(false);
 
 	function toggle() {
@@ -78,7 +78,7 @@ function IfDemo() {
 	]);
 }
 
-document.body.appendChild(IfDemo());
+document.body.appendChild(IfExample());
 
 ```
 
@@ -87,7 +87,7 @@ document.body.appendChild(IfDemo());
 ```typescript
 import { button, div, Switch, useState } from "tagu-tagu";
 
-function SwitchDemo() {
+function SwitchExample() {
 	const state = useState("triangle");
 
 	return div([
@@ -107,7 +107,7 @@ function SwitchDemo() {
 	]);
 }
 
-document.body.appendChild(SwitchDemo());
+document.body.appendChild(SwitchExample());
 
 ```
 
@@ -116,7 +116,7 @@ document.body.appendChild(SwitchDemo());
 ```typescript
 import { button, div, For, useState } from "tagu-tagu";
 
-function ForDemo() {
+function ForExample() {
 	const numbers = useState([1, 2, 3].map((n) => ({ n })));
 	let id = numbers.get().length;
 
@@ -140,7 +140,7 @@ function ForDemo() {
 	]);
 }
 
-document.body.appendChild(ForDemo());
+document.body.appendChild(ForExample());
 
 ```
 
@@ -160,7 +160,7 @@ function Sky() {
 	});
 }
 
-function DataBindingDemo() {
+function DataBindingExample() {
 	const theme = useState("dark" as "dark" | "light");
 
 	return div({ data: { theme } }, [
@@ -170,7 +170,7 @@ function DataBindingDemo() {
 	]);
 }
 
-document.body.appendChild(DataBindingDemo());
+document.body.appendChild(DataBindingExample());
 
 ```
 
