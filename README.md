@@ -54,26 +54,31 @@ button({css: {background: "blue"}}, "Hello!");
 ### `If`
 
 ```typescript
-import { div, If, input, Modify, span, useState } from "tagu-tagu";
+import { div, If, input, span, useState } from "tagu-tagu";
 
-const isVisible = useState(false);
+function IfDemo() {
+	const isVisible = useState(false);
 
-function toggle() {
-	isVisible.set(!isVisible.get());
+	function toggle() {
+		isVisible.set(!isVisible.get());
+	}
+
+	return div([
+		input({
+			attr: { type: "checkbox", checked: isVisible },
+			on: { click: toggle },
+		}),
+		If(isVisible, () =>
+			div({
+				css: { background: "blue", width: "300px", height: "300px" },
+			}),
+		),
+		span("Check to show rectangle"),
+	]);
 }
 
-Modify(document.body, [
-	input({
-		attr: { type: "checkbox", checked: isVisible },
-		on: { click: toggle },
-	}),
-	If(isVisible, () =>
-		div({
-			css: { background: "blue", width: "300px", height: "300px" },
-		}),
-	),
-	span("Check to show rectangle"),
-]);
+document.body.appendChild(IfDemo());
+
 ```
 
 ### `Switch`
