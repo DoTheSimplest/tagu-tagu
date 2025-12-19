@@ -16,6 +16,10 @@
 	"author": "do-the-simplest",
 	"type": "module",
 	"main": "src/index.ts",
+	"files": [
+		"src",
+		"dist"
+	],
 	"scripts": {
 		"test:browser": "vitest",
 		"build": "tsx scripts/build.ts"
