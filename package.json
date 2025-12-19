@@ -1,6 +1,6 @@
 {
 	"name": "tagu-tagu",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "A lightweight helper for vanilla `HTMLElement`, with reactivity.",
 	"keywords": [
 		"vanilla"
