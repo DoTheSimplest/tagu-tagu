@@ -84,27 +84,29 @@ document.body.appendChild(IfDemo());
 ### `Switch`
 
 ```typescript
-import { button, div, Modify, Switch, useState } from "tagu-tagu";
+import { button, div, Switch, useState } from "tagu-tagu";
 
-const state = useState(
-	"triangle" as "triangle" | "rectangle" | "circle" | "pentagon",
-);
+function SwitchDemo() {
+	const state = useState("triangle");
 
-Modify(document.body, [
-	button("Triangle", { on: { click: () => state.set("triangle") } }),
-	button("Rectangle", { on: { click: () => state.set("rectangle") } }),
-	button("Circle", { on: { click: () => state.set("circle") } }),
-	button("Pentagon", { on: { click: () => state.set("pentagon") } }),
-	Switch(
-		state,
-		[
-			{ case: "triangle", show: () => div("▲") },
-			{ case: "rectangle", show: () => div("■") },
-			{ case: "circle", show: () => div("●") },
-		],
-		() => div("?"),
-	),
-]);
+	return div([
+		button("Triangle", { on: { click: () => state.set("triangle") } }),
+		button("Rectangle", { on: { click: () => state.set("rectangle") } }),
+		button("Circle", { on: { click: () => state.set("circle") } }),
+		button("Pentagon", { on: { click: () => state.set("pentagon") } }),
+		Switch(
+			state,
+			[
+				{ case: "triangle", show: () => div("▲") },
+				{ case: "rectangle", show: () => div("■") },
+				{ case: "circle", show: () => div("●") },
+			],
+			() => div("?"),
+		),
+	]);
+}
+
+document.body.appendChild(SwitchDemo());
 
 ```
 
