@@ -29,10 +29,6 @@ describe(extractCallbackRecord, () => {
 		assert(callbacks);
 		expect(callbacks.callback).toEqual([record.callback]);
 	});
-	it("returns undefined if input doesn't contain callback", () => {
-		const callbacks = extractCallbackRecord({ x: 2 });
-		expect(callbacks).toBeUndefined();
-	});
 });
 
 describe(createDescendantCallbacks, () => {

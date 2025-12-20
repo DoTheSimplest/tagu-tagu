@@ -88,28 +88,14 @@ export function initializeData(element: Node, data: DataRecord | undefined) {
 }
 
 export function extractCallbackRecord(
-	record: DataRecord | undefined,
+	record: Record<string, DataCallback> | undefined,
 ): Record<string, DataCallback[]> | undefined {
-	return extractRecordFromDataRecord(
-		record,
-		(value) => typeof value === "function",
-		(callback) => [callback],
-	);
-}
-
-function extractRecordFromDataRecord(
-	record: DataRecord | undefined,
-	predicate: (value: any) => boolean,
-	map = (value: any) => value,
-) {
 	if (!record) return;
 
 	const result = {} as Record<string, any>;
 	for (const key in record) {
 		const value = record[key];
-		if (predicate(value)) {
-			result[key] = map(value);
-		}
+		result[key] = [value];
 	}
 
 	if (!Object.keys(result).length) return;
@@ -120,11 +106,7 @@ function extractRecordFromDataRecord(
 export function createDescendantCallbacks(
 	record: Record<string, DataCallback> | undefined,
 ) {
-	return extractRecordFromDataRecord(
-		record,
-		() => true,
-		(value) => [value],
-	);
+	return extractCallbackRecord(record);
 }
 
 export function appendCallbacksRecord(
