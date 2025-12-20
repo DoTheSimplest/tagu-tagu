@@ -1,5 +1,6 @@
 import { assert, describe, it } from "vitest";
 import { div, For, If, Switch, useState } from "../../src";
+import { waitForData } from "../../src/data/data";
 
 describe(`data with ${If.name}`, () => {
 	it(`calls callbacks when condition becomes true`, () => {
@@ -8,12 +9,12 @@ describe(`data with ${If.name}`, () => {
 		div({ data: { theme: "dark" } }, [
 			div([
 				If(condition, () =>
-					div({
-						data: {
-							theme: (value: string) => {
-								theme1 = value;
+					div((node) => {
+						waitForData(node, {
+							theme: (data) => {
+								theme1 = data;
 							},
-						},
+						});
 					}),
 				),
 			]),
@@ -32,12 +33,12 @@ describe(`data with ${If.name}`, () => {
 					condition,
 					() => div(),
 					() =>
-						div({
-							data: {
-								theme: (value: string) => {
-									theme1 = value;
+						div((node) => {
+							waitForData(node, {
+								theme: (data) => {
+									theme1 = data;
 								},
-							},
+							});
 						}),
 				),
 			]),
@@ -58,12 +59,12 @@ describe(`data with ${Switch.name}`, () => {
 					{
 						case: 2,
 						show: () =>
-							div({
-								data: {
-									theme: (value: string) => {
-										theme = value;
+							div((node) => {
+								waitForData(node, {
+									theme: (data) => {
+										theme = data;
 									},
-								},
+								});
 							}),
 					},
 				]),
@@ -86,22 +87,22 @@ describe(`data with ${Switch.name}`, () => {
 						{
 							case: 2,
 							show: () =>
-								div({
-									data: {
-										theme: (value: string) => {
-											theme = value;
+								div((node) => {
+									waitForData(node, {
+										theme: (data) => {
+											theme = data;
 										},
-									},
+									});
 								}),
 						},
 					],
 					() =>
-						div({
-							data: {
-								theme: (value: string) => {
-									theme2 = value;
+						div((node) => {
+							waitForData(node, {
+								theme: (data) => {
+									theme2 = data;
 								},
-							},
+							});
 						}),
 				),
 			]),
@@ -122,12 +123,10 @@ describe(`data with ${For.name}`, () => {
 		div({ data: { theme: "dark" } }, [
 			div([
 				For(people, () =>
-					div({
-						data: {
-							theme: (value: string) => {
-								themes.push(value);
-							},
-						},
+					div(async (node) => {
+						waitForData(node, {
+							theme: (data) => themes.push(data),
+						});
 					}),
 				),
 			]),

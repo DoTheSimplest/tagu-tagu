@@ -7,12 +7,13 @@ import {
 	extractCallbackRecord,
 	extractDataValueRecord,
 	nodeData,
+	waitForData,
 } from "../../src/data/data";
 
 describe("internal cache data", () => {
 	it("has undefined for callbacks resolved", () => {
 		const element = div({ data: { theme: "dark" } }, [
-			div({ data: { theme: () => {} } }),
+			div((node) => waitForData(node, { theme: () => {} })),
 		]);
 		assert(!nodeData.node2DescendantCallbacks.get(element));
 	});

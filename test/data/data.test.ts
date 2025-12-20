@@ -7,7 +7,12 @@ describe("data", () => {
 		const element = div({
 			data: { theme: "dark" },
 		});
-		const theme = await waitForData(element, "theme");
+		let theme: string | undefined;
+		waitForData(element, {
+			theme: (data) => {
+				theme = data;
+			},
+		});
 		assert.equal(theme, "dark");
 	});
 
@@ -18,8 +23,12 @@ describe("data", () => {
 				data: { theme: "dark" },
 			},
 			[
-				div(async (node) => {
-					theme = await waitForData(node, "theme");
+				div((node) => {
+					waitForData(node, {
+						theme: (data) => {
+							theme = data;
+						},
+					});
 				}),
 			],
 		);
@@ -34,8 +43,12 @@ describe("data", () => {
 			},
 			[
 				div([
-					div(async (node) => {
-						theme = await waitForData(node, "theme");
+					div((node) => {
+						waitForData(node, {
+							theme: (data) => {
+								theme = data;
+							},
+						});
 					}),
 				]),
 			],
@@ -47,8 +60,12 @@ describe("data", () => {
 		let theme: string | undefined;
 		div({ data: { theme: "light" } }, [
 			div({ data: { theme: "dark" } }, [
-				div(async (node) => {
-					theme = await waitForData(node, "theme");
+				div((node) => {
+					waitForData(node, {
+						theme: (data) => {
+							theme = data;
+						},
+					});
 				}),
 			]),
 		]);
@@ -58,9 +75,12 @@ describe("data", () => {
 	it("ignores callback if data isn't  set", () => {
 		let counter = 0;
 		div([
-			div(async (node) => {
-				await waitForData(node, "theme");
-				counter++;
+			div((node) => {
+				waitForData(node, {
+					theme: () => {
+						counter++;
+					},
+				});
 			}),
 		]);
 		assert.equal(counter, 0);
@@ -69,9 +89,12 @@ describe("data", () => {
 	it("calls callback only once", () => {
 		let counter = 0;
 		div({ data: { theme: "light" } }, [
-			div({ data: { theme: "dark" } }, async (node) => {
-				await waitForData(node, "theme");
-				counter++;
+			div({ data: { theme: "dark" } }, (node) => {
+				waitForData(node, {
+					theme: () => {
+						counter++;
+					},
+				});
 			}),
 		]);
 		assert.equal(counter, 1);
@@ -82,11 +105,19 @@ describe("data", () => {
 		let theme2: string | undefined;
 		div({ data: { theme: "dark" } }, [
 			div([
-				div(async (node) => {
-					theme1 = await waitForData(node, "theme");
+				div((node) => {
+					waitForData(node, {
+						theme: (data) => {
+							theme1 = data;
+						},
+					});
 				}),
-				div(async (node) => {
-					theme2 = await waitForData(node, "theme");
+				div((node) => {
+					waitForData(node, {
+						theme: (data) => {
+							theme2 = data;
+						},
+					});
 				}),
 			]),
 		]);
@@ -98,13 +129,19 @@ describe("data", () => {
 		let counter = 0;
 		div({ data: { theme: "dark" } }, [
 			div(
-				async (node) => {
-					await waitForData(node, "theme");
-					counter++;
+				(node) => {
+					waitForData(node, {
+						theme: () => {
+							counter++;
+						},
+					});
 				},
-				async (node) => {
-					await waitForData(node, "theme");
-					counter++;
+				(node) => {
+					waitForData(node, {
+						theme: () => {
+							counter++;
+						},
+					});
 				},
 			),
 		]);
