@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { button, FlexDiv, input, span } from "../../src/Elements";
+import { button, div, input, span } from "../../src/Elements";
 import { If } from "../../src/flow/If";
 import { Switch } from "../../src/flow/Switch";
 import { Modify } from "../../src/Modify";
@@ -19,7 +19,7 @@ describe("control-flow", () => {
 				},
 			}),
 			If(isDisplayed, () =>
-				FlexDiv({
+				div({
 					css: { background: "blue", width: "300px", height: "300px" },
 				}),
 			),
@@ -42,10 +42,10 @@ describe("control-flow", () => {
 			If(
 				isDisplayed,
 				() =>
-					FlexDiv({
+					div({
 						css: { background: "blue", width: "300px", height: "300px" },
 					}),
-				() => FlexDiv("No rectangle"),
+				() => div("No rectangle"),
 			),
 			span("Check to show rectangle"),
 		]);
@@ -64,11 +64,11 @@ describe("control-flow", () => {
 			Switch(
 				state,
 				[
-					{ case: "triangle", show: () => FlexDiv("▲") },
-					{ case: "rectangle", show: () => FlexDiv("■") },
-					{ case: "circle", show: () => FlexDiv("●") },
+					{ case: "triangle", show: () => div("▲") },
+					{ case: "rectangle", show: () => div("■") },
+					{ case: "circle", show: () => div("●") },
 				],
-				() => FlexDiv("?"),
+				() => div("?"),
 			),
 		]);
 	});
