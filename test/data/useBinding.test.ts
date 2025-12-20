@@ -90,4 +90,17 @@ describe("useBinding", () => {
 		theme.set("light");
 		expect(child.innerHTML).toBe("Light");
 	});
+
+	it("on, function", () => {
+		let counter = 0;
+		function handleClick() {
+			counter++;
+		}
+		const child = div({
+			on: { click: useBinding("handleClick", (f) => f) },
+		});
+		div({ data: { handleClick } }, [child]);
+		child.click();
+		expect(counter).toBe(1);
+	});
 });

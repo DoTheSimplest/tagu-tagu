@@ -11,6 +11,7 @@ type EventListenerType<
 type EventListenerRecord<TEventType2Event> = {
 	[TEventType in keyof TEventType2Event]?:
 		| EventListenerType<TEventType2Event, TEventType>
+		| Binding
 		| {
 				listener: EventListenerType<TEventType2Event, TEventType>;
 				options: boolean | AddEventListenerOptions;
@@ -170,6 +171,13 @@ function initializeEventListeners<TEventType2Event>(
 		if (!listener) continue;
 		if (typeof listener === "function") {
 			element.addEventListener(eventName, listener as EventListener);
+		} else if (listener instanceof Binding) {
+			waitForData(element, {
+				[listener.key]: (data) => {
+					const func = listener.map(data);
+					element.addEventListener(eventName, func);
+				},
+			});
 		} else {
 			element.addEventListener(
 				eventName,
