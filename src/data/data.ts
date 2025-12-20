@@ -97,15 +97,6 @@ export function extractCallbackRecord(
 	);
 }
 
-export function extractDataValueRecord(
-	record: DataRecord | undefined,
-): Record<string, any> | undefined {
-	return extractRecordFromDataRecord(
-		record,
-		(value) => typeof value !== "function",
-	);
-}
-
 function extractRecordFromDataRecord(
 	record: DataRecord | undefined,
 	predicate: (value: any) => boolean,

@@ -5,7 +5,6 @@ import {
 	createDescendantCallbacks,
 	type DataRecord,
 	extractCallbackRecord,
-	extractDataValueRecord,
 	nodeData,
 	waitForData,
 } from "../../src/data/data";
@@ -33,23 +32,6 @@ describe(extractCallbackRecord, () => {
 	it("returns undefined if input doesn't contain callback", () => {
 		const callbacks = extractCallbackRecord({ x: 2 });
 		expect(callbacks).toBeUndefined();
-	});
-});
-
-describe(extractDataValueRecord, () => {
-	it("returns undefined if input is undefined", () => {
-		const actual = extractDataValueRecord(undefined);
-		expect(actual).toBeUndefined();
-	});
-	it("extracts functions from object", () => {
-		const actual = extractDataValueRecord({ callback: () => {} });
-		expect(actual).toBeUndefined();
-	});
-	it("returns undefined if input doesn't contain callback", () => {
-		const record = { x: 2 } as DataRecord;
-		const actual = extractDataValueRecord(record);
-		assert(actual);
-		expect(actual.callback).toBe(record.callback);
 	});
 });
 
