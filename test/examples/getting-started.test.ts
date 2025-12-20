@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { button, FlexDiv, span, style } from "../../src/Elements";
+import { button, div, span, style } from "../../src/Elements";
 import { Modify } from "../../src/Modify";
 import { FromStates, useState } from "../../src/State";
 
@@ -27,7 +27,7 @@ describe("getting started", () => {
 		const background = useState("green" as "red" | "green" | "blue");
 
 		Modify(document.body, { html: "" }, [
-			FlexDiv({
+			div({
 				css: { width: "300px", height: "300px", background: background },
 			}),
 			button("red", { on: { click: () => background.set("red") } }),
@@ -42,7 +42,7 @@ describe("getting started", () => {
 		Modify(document.body, { html: "" }, [
 			button("small", { on: { click: () => background.set("small") } }),
 			button("large", { on: { click: () => background.set("large") } }),
-			FlexDiv(
+			div(
 				{
 					attr: {
 						class: background,
@@ -77,7 +77,7 @@ describe("getting started", () => {
 		}
 
 		Modify(document.body, { html: "" }, [
-			FlexDiv({
+			div({
 				text: count,
 			}),
 			button("-", { on: { click: decrementCount } }),
@@ -96,7 +96,7 @@ describe("getting started", () => {
 		}
 
 		Modify(document.body, { html: "" }, [
-			FlexDiv({
+			div({
 				html: FromStates([count], () => `${count.get()}`),
 			}),
 			button("-", { on: { click: decrementCount } }),
@@ -105,7 +105,7 @@ describe("getting started", () => {
 	});
 
 	it("Modify by selector", () => {
-		Modify(document.body, { html: "" }, [FlexDiv({ attr: { id: "my-div" } })]);
+		Modify(document.body, { html: "" }, [div({ attr: { id: "my-div" } })]);
 		Modify("#my-div", {
 			css: { background: "blue", width: "100px", height: "100px" },
 		});
