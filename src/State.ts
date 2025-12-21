@@ -32,7 +32,7 @@ export function useState<T>(value: any, map?: any) {
 	}
 }
 
-export function fromStates<T>(states: State[], createValue: () => T) {
+function fromStates<T>(states: State[], createValue: () => T) {
 	const result = new State<T>(createValue());
 	const update = () => {
 		result.set(createValue());
