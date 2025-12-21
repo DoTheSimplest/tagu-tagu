@@ -125,9 +125,23 @@ export function findData(node: Node | null, key: string) {
 	return findData(node.parentElement, key);
 }
 
+export function waitForData<T = any>(node: Node, key: string): Promise<T>;
 export function waitForData(
 	node: Node,
 	callbackRecord: Record<string, (data: any) => void>,
-) {
-	nodeData.addCallbacks(node, extractCallbackRecord(callbackRecord));
+): void;
+export function waitForData(node: Node, callbacksOrKey: any) {
+	if (typeof callbacksOrKey === "string") {
+		return waitForData_Promise(node, callbacksOrKey);
+	}
+
+	nodeData.addCallbacks(node, extractCallbackRecord(callbacksOrKey));
+}
+
+function waitForData_Promise<T = any>(node: Node, key: string): Promise<T> {
+	return new Promise<any>((resolve) => {
+		const found = findData(node, key);
+		if (found !== undefined) resolve(found);
+		else nodeData.addCallbacks(node, { [key]: [resolve] });
+	});
 }

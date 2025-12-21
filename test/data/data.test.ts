@@ -171,4 +171,16 @@ describe("data", () => {
 		);
 		assert.equal(counter, 1);
 	});
+
+	it("get data with Promise", async () => {
+		const child = div();
+		div(
+			{
+				data: { theme: "dark" },
+			},
+			[child],
+		);
+		const theme = await waitForData<string>(child, "theme");
+		assert.equal(theme, "dark");
+	});
 });
