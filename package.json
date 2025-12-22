@@ -4,7 +4,10 @@
 	"description": "A lightweight helper for vanilla `HTMLElement`, with reactivity.",
 	"keywords": [
 		"vanilla",
-		"reactive"
+		"reactive",
+		"front-end",
+		"framework",
+		"element"
 	],
 	"homepage": "https://github.com/DoTheSimplest/tagu-tagu#readme",
 	"bugs": {
