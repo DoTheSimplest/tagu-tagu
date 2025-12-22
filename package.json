@@ -3,11 +3,11 @@
 	"version": "3.2.1",
 	"description": "A lightweight helper for vanilla `HTMLElement`, with reactivity.",
 	"keywords": [
-		"vanilla",
-		"reactive",
 		"front-end",
-		"framework",
-		"element"
+		"reactive",
+		"vanilla",
+		"element",
+		"framework"
 	],
 	"homepage": "https://github.com/DoTheSimplest/tagu-tagu#readme",
 	"bugs": {
