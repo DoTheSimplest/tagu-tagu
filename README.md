@@ -54,6 +54,7 @@ button({css: {background: "blue"}}, "Hello!");
 
 #### Modify existing element
 You can use initializers for existing element.
+[JSFiddle](https://jsfiddle.net/do_the_simplest/o87nw6zL/15/)
 
 ```typescript
 import { Modify } from "tagu-tagu";
