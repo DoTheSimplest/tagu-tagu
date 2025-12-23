@@ -51,12 +51,14 @@ export function applyStringOrState(
 ) {
 	if (typeof value === "string") {
 		initialize(value);
-	} else {
+	} else if (value instanceof State) {
 		const update = () => {
 			initialize(value.get());
 		};
 		update();
 		value.on("change", update);
+	} else {
+		initialize(value);
 	}
 }
 
