@@ -41,9 +41,6 @@ document.body.appendChild(CounterExample());
 No need to compile. But typescript is supported.
 
 ## Examples
-See examples [here](https://dothesimplest.github.io/tagu-tagu/).
-
-## Features
 
 ### Initializers
 `tagu-tagu` uses rest parameters. Arguments can be any order.
