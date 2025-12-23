@@ -186,6 +186,49 @@ function $Example() {
 $Example();
 ```
 
+#### `$$` initializer
+[JSFiddle](https://jsfiddle.net/do_the_simplest/gqe5378t/1/)
+```html
+<meta charset="utf-8">
+<div>
+    <h1>Unfertilized Eggs</h1>
+    <button>🥚</button>
+    <button>🥚</button>
+    <button>🥚</button>
+    <button>🥚</button>
+    <button>🥚</button>
+</div>
+<div id="fertilized">
+    <h1>Click!</h1>
+    <button>🥚</button>
+    <button>🥚</button>
+    <button>🥚</button>
+    <button>🥚</button>
+    <button>🥚</button>
+</div>
+<script type="module" src="index.ts"></script>
+```
+```typescript
+import { Modify } from "tagu-tagu";
+
+// Element: querySelectorAll
+function $$Example() {
+	Modify("#fertilized", {
+		$$: {
+			button: {
+				on: {
+					click: (e) => {
+						(e.target as HTMLButtonElement).textContent = "🐣";
+					},
+				},
+			},
+		},
+	});
+}
+
+$$Example();
+```
+
 ### `If`
 
 ```typescript
