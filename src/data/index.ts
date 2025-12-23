@@ -1,2 +1,2 @@
-export { findData } from "./data";
+export { findData, waitForData } from "./data";
 export { useBinding } from "./useBinding";
