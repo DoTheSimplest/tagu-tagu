@@ -229,6 +229,26 @@ function $$Example() {
 $$Example();
 ```
 
+#### Callback initializer
+[JSFiddle](https://jsfiddle.net/do_the_simplest/tfj8uqa7/3/)
+```typescript
+import { button, div } from "tagu-tagu";
+
+function InitializerCallbackExample() {
+	return div([
+		div([
+			div([
+				button("Deep", (button) =>
+					console.log("debug:", button, "is created!"),
+				),
+			]),
+		]),
+	]);
+}
+
+document.body.appendChild(InitializerCallbackExample());
+```
+
 ### `If`
 
 ```typescript
