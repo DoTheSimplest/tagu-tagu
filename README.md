@@ -147,6 +147,45 @@ function OnExample() {
 document.body.appendChild(OnExample());
 ```
 
+#### `$` initializer
+[JSFiddle](https://jsfiddle.net/do_the_simplest/b8roj7wx/1/)
+```html
+<form>
+    <div>Name: <input id="name"></div>
+    <div>Age: <input id="age"></div>
+    <button id="submit">Submit</button>
+</form>
+<script type="module" src="index.ts"></script>
+```
+```typescript
+import { Modify, style } from "tagu-tagu";
+
+// Element: querySelector
+function $Example() {
+	Modify("form", {
+		$: {
+			"#name": { prop: { defaultValue: "Einstein" } },
+			"#age": { attr: { type: "number" }, prop: { defaultValue: 26 } },
+			"#submit": [
+				style({
+					"#submit": {
+						background: "blue",
+						color: "white",
+						border: "none",
+						"border-radius": "10px",
+					},
+					"#submit:hover": {
+						background: "skyblue",
+					},
+				}),
+			],
+		},
+	});
+}
+
+$Example();
+```
+
 ### `If`
 
 ```typescript
