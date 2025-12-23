@@ -272,6 +272,20 @@ function InitializerCallbackExample() {
 document.body.appendChild(InitializerCallbackExample());
 ```
 
+#### Data initializer
+[JSFiddle](https://jsfiddle.net/do_the_simplest/9cLtyzkm/1/)
+
+```typescript
+import { div, waitForData } from "tagu-tagu";
+
+function DataExample() {
+	return div({ data: { "my-data-key": "Hello World!" } });
+}
+
+const element = DataExample();
+console.log(await waitForData(element, "my-data-key")); // Hello World!
+```
+
 ### `If`
 [JSFiddle](https://jsfiddle.net/do_the_simplest/bxuqsh1d/19/)
 
