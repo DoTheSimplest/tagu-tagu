@@ -37,6 +37,7 @@ function CounterExample(){
 
 document.body.appendChild(CounterExample());
 ```
+[JSFiddle](https://jsfiddle.net/do_the_simplest/3bysqr7t/14/)
 
 No need to compile. But typescript is supported.
 
