@@ -44,7 +44,8 @@ No need to compile. But typescript is supported.
 ## Examples
 
 ### Initializers
-Initializers are rest parameters. Arguments can be any order.
+Elements are initialized by rest parameters. Arguments can be any order.
+
 ```typescript
 button("Hello!", {css: {background: "blue"}});
 button({css: {background: "blue"}}, "Hello!");
