@@ -33,7 +33,7 @@ type ElementPropertyInitializer<TEventType2Event> = {
 	$?: $Record;
 	$$?: $Record;
 	data?: DataRecord;
-	animate?: number | { duration?: number };
+	animate?: number | KeyframeAnimationOptions;
 };
 
 export type ElementInitializer<
@@ -227,12 +227,12 @@ function initializePropertyInitializerWithAnimation<
 		}
 	}
 
-	const animate = initializer.animate;
-	const duration =
-		(typeof animate === "number" ? animate : animate?.duration) ?? 400;
-	const animation = element.animate([{}, css], {
-		duration,
-	});
+	const options = initializer.animate;
+	if (options && typeof options !== "number") {
+		options.duration ??= 400;
+	}
+
+	const animation = element.animate([{}, css], options);
 	return animation.finished.then(() =>
 		initializePropertyInitializerWithoutAnimation(element, initializer),
 	);
