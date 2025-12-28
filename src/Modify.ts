@@ -216,13 +216,17 @@ function initializePropertyInitializerWithAnimation<
 	element: TElement,
 	initializer: ElementPropertyInitializer<TEventType2Event>,
 ) {
-	const css = { ...(initializer.css ?? {}) };
-	for (const key in css) {
-		if (typeof css[key] !== "string") {
-			delete css[key];
+	const css = {} as Record<string, string>;
+	for (const key in initializer.css) {
+		const value = initializer.css[key];
+		if (typeof value === "string") {
+			css[key] = value;
+		}
+		if (value instanceof State) {
+			css[key] = value.get();
 		}
 	}
-	const animation = element.animate([{}, css as Record<string, string>], {
+	const animation = element.animate([{}, css], {
 		duration: initializer.animate,
 	});
 	return animation.finished.then(() =>
