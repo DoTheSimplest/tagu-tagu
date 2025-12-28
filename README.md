@@ -351,6 +351,9 @@ document.body.appendChild(InitializerCallbackExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/tfj8uqa7/3/)
 
+#### Animation
+[`animate` initializer](./docs/animate.md)
+
 ### `State`
 ```typescript
 import { button, div, useState } from "tagu-tagu";
