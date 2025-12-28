@@ -246,7 +246,7 @@ function initialize<TElement extends Element, TEventType2Event>(
 	} else if (typeof initializer === "function") {
 		initializer(element);
 	} else {
-		if (initializer.animate) {
+		if (initializer.animate !== undefined) {
 			return initializePropertyInitializerWithAnimation(element, initializer);
 		}
 		initializePropertyInitializerWithoutAnimation(element, initializer);
