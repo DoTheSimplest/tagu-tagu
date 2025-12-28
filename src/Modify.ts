@@ -33,7 +33,7 @@ type ElementPropertyInitializer<TEventType2Event> = {
 	$?: $Record;
 	$$?: $Record;
 	data?: DataRecord;
-	animate?: number;
+	animate?: number | {};
 };
 
 export type ElementInitializer<
@@ -226,8 +226,11 @@ function initializePropertyInitializerWithAnimation<
 			css[key] = value.get();
 		}
 	}
+
+	const animate = initializer.animate;
+	const duration = typeof animate === "number" ? animate : 400;
 	const animation = element.animate([{}, css], {
-		duration: initializer.animate,
+		duration,
 	});
 	return animation.finished.then(() =>
 		initializePropertyInitializerWithoutAnimation(element, initializer),

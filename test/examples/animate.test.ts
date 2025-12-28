@@ -23,4 +23,15 @@ describe("animate", () => {
 			),
 		]);
 	});
+
+	it("animate: {}", () => {
+		Modify(document.body, { html: "" }, [
+			div(
+				"Hello!",
+				{ css: { background: "blue" } },
+				{ css: { background: "lime" }, animate: {} },
+				{ text: "Animation Finished" },
+			),
+		]);
+	});
 });
