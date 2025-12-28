@@ -33,6 +33,7 @@ type ElementPropertyInitializer<TEventType2Event> = {
 	$?: $Record;
 	$$?: $Record;
 	data?: DataRecord;
+	animate?: number;
 };
 
 export type ElementInitializer<
@@ -190,6 +191,24 @@ function initializeEventListeners<TEventType2Event>(
 	}
 }
 
+function initializePropertyInitializerWithoutAnimation<
+	TElement extends Element,
+	TEventType2Event,
+>(
+	element: TElement,
+	initializer: ElementPropertyInitializer<TEventType2Event>,
+) {
+	initializeHtml(element, initializer.html);
+	initializeText(element, initializer.text);
+	initializeAttributes(element, initializer.attr);
+	initializeProps(element, initializer.prop);
+	initializeStyle(element, initializer.css);
+	initialize$(element, initializer.$);
+	initialize$$(element, initializer.$$);
+	initializeEventListeners(element, initializer.on);
+	initializeData(element, initializer.data);
+}
+
 function initialize<TElement extends Element, TEventType2Event>(
 	element: TElement | null,
 	initializer: ElementInitializer<TElement, TEventType2Event>,
@@ -202,15 +221,21 @@ function initialize<TElement extends Element, TEventType2Event>(
 	} else if (typeof initializer === "function") {
 		initializer(element);
 	} else {
-		initializeHtml(element, initializer.html);
-		initializeText(element, initializer.text);
-		initializeAttributes(element, initializer.attr);
-		initializeProps(element, initializer.prop);
-		initializeStyle(element, initializer.css);
-		initialize$(element, initializer.$);
-		initialize$$(element, initializer.$$);
-		initializeEventListeners(element, initializer.on);
-		initializeData(element, initializer.data);
+		if (initializer.animate) {
+			const css = { ...(initializer.css ?? {}) };
+			for (const key in css) {
+				if (typeof css[key] !== "string") {
+					delete css[key];
+				}
+			}
+			const animation = element.animate([{}, css as Record<string, string>], {
+				duration: initializer.animate,
+			});
+			return animation.finished.then(() =>
+				initializePropertyInitializerWithoutAnimation(element, initializer),
+			);
+		}
+		initializePropertyInitializerWithoutAnimation(element, initializer);
 	}
 }
 
@@ -222,9 +247,14 @@ export function Modify<T extends Element>(
 		typeof elementOrSelector === "string"
 			? (document.querySelector(elementOrSelector) as T)
 			: elementOrSelector;
-	for (const initializer of initializers) {
-		initialize(element, initializer);
-	}
+
+	(async () => {
+		for (const initializer of initializers) {
+			const animation = initialize(element, initializer);
+			if (animation) await animation;
+		}
+	})();
+
 	return element;
 }
 
