@@ -230,6 +230,8 @@ function initializePropertyInitializerWithAnimation<
 	const options = initializer.animate;
 	if (options && typeof options !== "number") {
 		options.duration ??= 400;
+		options.easing =
+			options.easing === "swing" ? "ease-in-out" : options.easing;
 	}
 
 	const animation = element.animate([{}, css], options);

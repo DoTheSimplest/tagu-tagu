@@ -44,4 +44,18 @@ describe("animate", () => {
 			),
 		]);
 	});
+
+	it(`animate: {easing: "swing"}`, () => {
+		Modify(document.body, { html: "" }, [
+			div(
+				"Hello!",
+				{ css: { background: "blue" } },
+				{
+					css: { background: "lime" },
+					animate: { duration: 1000, easing: "swing" },
+				},
+				{ text: "Animation Finished" },
+			),
+		]);
+	});
 });
