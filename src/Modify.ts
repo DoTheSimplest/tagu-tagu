@@ -254,6 +254,19 @@ function initializePropertyInitializerWithOwnAnimation<
 	);
 }
 
+function initializeElementPropertyInitializer<
+	TElement extends Element,
+	TEventType2Event,
+>(
+	element: TElement,
+	initializer: ElementPropertyInitializer<TEventType2Event>,
+): Promise<any> | undefined {
+	if (initializer.animate !== undefined) {
+		return initializePropertyInitializerWithOwnAnimation(element, initializer);
+	}
+	return initializePropertyInitializerWithoutOwnAnimation(element, initializer);
+}
+
 function initialize<TElement extends Element, TEventType2Event>(
 	element: TElement | null,
 	initializer: ElementInitializer<TElement, TEventType2Event>,
@@ -267,16 +280,7 @@ function initialize<TElement extends Element, TEventType2Event>(
 		const result = initializer(element);
 		if (result instanceof Promise) return result;
 	} else {
-		if (initializer.animate !== undefined) {
-			return initializePropertyInitializerWithOwnAnimation(
-				element,
-				initializer,
-			);
-		}
-		return initializePropertyInitializerWithoutOwnAnimation(
-			element,
-			initializer,
-		);
+		return initializeElementPropertyInitializer(element, initializer);
 	}
 }
 
