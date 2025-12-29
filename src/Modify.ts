@@ -222,7 +222,7 @@ function initializePropertyInitializerWithoutOwnAnimation<
 	return result$;
 }
 
-function initializePropertyInitializerWithAnimation<
+function initializePropertyInitializerWithOwnAnimation<
 	TElement extends Element,
 	TEventType2Event,
 >(
@@ -268,7 +268,10 @@ function initialize<TElement extends Element, TEventType2Event>(
 		if (result instanceof Promise) return result;
 	} else {
 		if (initializer.animate !== undefined) {
-			return initializePropertyInitializerWithAnimation(element, initializer);
+			return initializePropertyInitializerWithOwnAnimation(
+				element,
+				initializer,
+			);
 		}
 		return initializePropertyInitializerWithoutOwnAnimation(
 			element,
