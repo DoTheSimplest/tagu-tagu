@@ -170,12 +170,16 @@ function extractPromiseAll(results: any[]) {
 }
 
 function initialize$$(element: Element, $$: $Record | undefined) {
+	const results = [];
+
 	for (const selector in $$) {
 		const selectedItems = element.querySelectorAll(selector);
 		for (const selected of selectedItems) {
-			initialize(selected, $$[selector]);
+			results.push(initialize(selected, $$[selector]));
 		}
 	}
+
+	return extractPromiseAll(results);
 }
 
 function initializeEventListeners<TEventType2Event>(
@@ -218,10 +222,10 @@ function initializePropertyInitializerWithoutOwnAnimation<
 	initializeProps(element, initializer.prop);
 	initializeStyle(element, initializer.css);
 	const result$ = initialize$(element, initializer.$);
-	initialize$$(element, initializer.$$);
+	const result$$ = initialize$$(element, initializer.$$);
 	initializeEventListeners(element, initializer.on);
 	initializeData(element, initializer.data);
-	return result$;
+	return extractPromiseAll([result$, result$$]);
 }
 
 function initializePropertyInitializerWithOwnAnimation<
