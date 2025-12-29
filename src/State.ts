@@ -8,19 +8,17 @@ export class State<T = any> {
 	set(value: T) {
 		this.#value = value;
 
-		this.#dispatch("change");
+		this.#dispatch();
 	}
-	#dispatch(event: string) {
-		this.#listeners.dispatchEvent(new Event(event));
+	#dispatch() {
+		this.#listeners.forEach(listener => listener());
 	}
 
-	#listeners = new EventTarget();
-	on(event: StateEventType, listener: () => void) {
-		this.#listeners.addEventListener(event, listener);
+	#listeners = new Set<()=>void>();
+	on(listener: () => void) {
+		this.#listeners.add(listener);
 	}
 }
-
-type StateEventType = "change";
 
 export function useState<T>(states: State[], map: () => T): State<T>;
 export function useState<TSrc, TDest>(
@@ -45,7 +43,7 @@ function fromStates<T>(states: State[], createValue: () => T) {
 		result.set(createValue());
 	};
 	for (const state of states) {
-		state.on("change", update);
+		state.on( update);
 	}
 	return result;
 }

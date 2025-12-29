@@ -90,6 +90,6 @@ export class SwitchFlow<T> extends ControlFlow {
 
 		update();
 
-		this.#value.on("change", update);
+		this.#value.on(update);
 	}
 }

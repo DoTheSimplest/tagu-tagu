@@ -75,7 +75,7 @@ export class ForMap<T> extends ControlFlow {
 		};
 
 		updateListUI();
-		this.list.on("change", () => {
+		this.list.on(() => {
 			updateListUI();
 		});
 	}

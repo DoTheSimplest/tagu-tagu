@@ -24,7 +24,7 @@ export function SwitchBlockState<TCase, TElement = Element>(
 		result.set(activated);
 	};
 
-	value.on('change', update);
+	value.on(update);
 
 	update();
 	return result;

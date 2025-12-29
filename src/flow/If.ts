@@ -56,6 +56,6 @@ export class IfFlow extends ControlFlow {
 
 		update();
 
-		this.#condition.on("change", update);
+		this.#condition.on(update);
 	}
 }

@@ -62,7 +62,7 @@ export function applyStringOrState(
 			initialize(value.get());
 		};
 		update();
-		value.on("change", update);
+		value.on(update);
 	} else {
 		initialize(value);
 	}
