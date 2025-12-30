@@ -354,7 +354,10 @@ document.body.appendChild(InitializerCallbackExample());
 #### Animation
 [`animate` initializer](./docs/animate.md)
 
-### `State`
+### `Signal`
+
+#### `useState`
+
 ```typescript
 import { button, div, useState } from "tagu-tagu";
 
@@ -372,6 +375,7 @@ document.body.appendChild(SimpleStateExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/j3948zpo/1/)
 
+#### `useComputed`
 ```typescript
 import { button, div, useState, useComputed } from "tagu-tagu";
 
