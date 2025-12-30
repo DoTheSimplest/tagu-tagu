@@ -447,6 +447,7 @@ function EffectExample() {
 
 document.body.appendChild(EffectExample());
 ```
+[JSFiddle](https://jsfiddle.net/do_the_simplest/ge3mbua4/3/)
 
 ### `If`
 
