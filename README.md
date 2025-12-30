@@ -423,6 +423,31 @@ document.body.appendChild(TwoComputedSignalsStateExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/8hsuc5pn/5/)
 
+#### `useEffect`
+
+```typescript
+import { button, div, useEffect, useState } from "tagu-tagu";
+
+function EffectExample() {
+	const count = useState(0);
+
+	function incrementCount() {
+		count.set(count.get() + 1);
+	}
+
+	useEffect(() => {
+		console.log("count:", count.get());
+	});
+
+	return div([
+		div("See console"),
+		button("+", { on: { click: incrementCount } }),
+	]);
+}
+
+document.body.appendChild(EffectExample());
+```
+
 ### `If`
 
 ```typescript
