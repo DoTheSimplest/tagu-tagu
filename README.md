@@ -383,7 +383,7 @@ function StateFromStateExample() {
 	}
 
 	return div([
-		div(useState(count, (n) => (n ? n : "Zero"))),
+		div(useComputed(() => (count.get() ? count.get() : "Zero"))),
 		button("+", { on: { click: incrementCount } }),
 	]);
 }
@@ -404,9 +404,11 @@ function TwoStatesFromStateExample() {
 
 	return div([
 		div(
-			useState(count, (n) => (n ? n : "Zero")),
+			useComputed(() => (count.get() ? count.get() : "Zero")),
 			{
-				css: { color: useState(count, (n) => (n % 2 === 0 ? "blue" : "tan")) },
+				css: {
+					color: useComputed(() => (count.get() % 2 === 0 ? "blue" : "tan")),
+				},
 			},
 		),
 		button("+", { on: { click: incrementCount } }),
