@@ -419,7 +419,7 @@ function TwoComputedSignalsExample() {
 	]);
 }
 
-document.body.appendChild(TwoComputedSignalsStateExample());
+document.body.appendChild(TwoComputedSignalsExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/8hsuc5pn/5/)
 
