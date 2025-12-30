@@ -373,9 +373,9 @@ document.body.appendChild(SimpleStateExample());
 [JSFiddle](https://jsfiddle.net/do_the_simplest/j3948zpo/1/)
 
 ```typescript
-import { button, div, useState } from "tagu-tagu";
+import { button, div, useState, useComputed } from "tagu-tagu";
 
-function StateFromStateExample() {
+function ComputedExample() {
 	const count = useState(0);
 
 	function incrementCount() {
@@ -388,7 +388,7 @@ function StateFromStateExample() {
 	]);
 }
 
-document.body.appendChild(StateFromStateExample());
+document.body.appendChild(ComputedExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/by934m81/7/)
 
