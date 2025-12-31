@@ -46,3 +46,5 @@ function AnimateWithCallbackExample() {
 
 document.body.appendChild(AnimateWithCallbackExample());
 ```
+
+[JSFiddle](https://jsfiddle.net/do_the_simplest/vze3htLg/3/)
