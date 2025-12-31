@@ -1,3 +1,4 @@
+export { Await } from "./Await";
 export { ControlFlow } from "./ControlFlow";
 export { For } from "./For";
 export { If } from "./If";
