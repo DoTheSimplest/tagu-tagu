@@ -9,30 +9,33 @@ export function Await<T>(
 		rejected?: (error: any) => Element;
 	},
 ) {
-	const promiseState = useState("pending");
+	const pending = "pending";
+	const fulfilled = "fulfilled";
+	const rejected = "rejected";
+	const promiseState = useState(pending);
 
 	let value: T;
 	let error: any;
 	promise
 		.then((v) => {
 			value = v;
-			promiseState.set("fulfilled");
+			promiseState.set(fulfilled);
 		})
 		.catch((reason) => {
 			error = reason;
-			promiseState.set("rejected");
+			promiseState.set(rejected);
 		});
 
 	const switchOptions = {} as Record<string, () => Element>;
 
 	if (options?.pending) {
-		switchOptions.pending = options.pending;
+		switchOptions[pending] = options.pending;
 	}
 	if (options?.fulfilled) {
-		switchOptions.fulfilled = () => options.fulfilled!(value);
+		switchOptions[fulfilled] = () => options.fulfilled!(value);
 	}
 	if (options?.rejected) {
-		switchOptions.rejected = () => options.rejected!(error);
+		switchOptions[rejected] = () => options.rejected!(error);
 	}
 
 	return Switch(promiseState, switchOptions);
