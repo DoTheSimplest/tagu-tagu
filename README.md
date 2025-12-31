@@ -619,6 +619,8 @@ document.body.appendChild(AwaitPromiseOfElementExample());
 
 ```
 
+[JSFiddle](https://jsfiddle.net/do_the_simplest/dvenyrjf/2/)
+
 ### Data binding
 You can use data of ancestors.
 
