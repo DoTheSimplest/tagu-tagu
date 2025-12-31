@@ -449,6 +449,35 @@ document.body.appendChild(EffectExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/ge3mbua4/3/)
 
+Cleanup in `useEffect`:
+```typescript
+import { button, div, useEffect, useState } from "tagu-tagu";
+
+function EffectWithCleanupExample() {
+	const count = useState(0);
+
+	function incrementCount() {
+		count.set(count.get() + 1);
+	}
+
+	useEffect((effect) => {
+		const countValue = count.get();
+		effect.onCleanup(() => {
+			console.log("Cleanup:", countValue);
+		});
+		console.log("Count:", countValue);
+	});
+
+	return div([
+		div("See console"),
+		button("+", { on: { click: incrementCount } }),
+	]);
+}
+
+document.body.appendChild(EffectWithCleanupExample());
+```
+
+
 ### `If`
 
 ```typescript
