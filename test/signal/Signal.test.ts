@@ -44,4 +44,26 @@ describe(useState, () => {
 		counter.set(2);
 		assert.deepEqual(log, ["Odd", "Even"]);
 	});
+
+	it("cleanup effect", () => {
+		const counter = useState(3);
+		const isEven = useComputed(() => {
+			return counter.get() % 2 === 0;
+		});
+		const isEvenText = useComputed(() => {
+			return isEven.get() ? "Even" : "Odd";
+		});
+		const log = [] as string[];
+
+		useEffect((effect) => {
+			log.push(isEvenText.get());
+			effect.onCleanup(() => {
+				log.push("cleanup");
+			});
+		});
+
+		assert.deepEqual(log, ["Odd"]);
+		counter.set(2);
+		assert.deepEqual(log, ["Odd", "cleanup", "Even"]);
+	});
 });

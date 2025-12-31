@@ -46,8 +46,20 @@ export class Computed<T> extends Signal<T> {
 	}
 }
 
-export function useEffect(effectCallback: () => void) {
-	const effect = new Computed<void>(effectCallback);
+export interface Effect {
+	onCleanup(callback: () => void): void;
+}
+export function useEffect(effectCallback: (effect: Effect) => void) {
+	let cleanup: () => void;
+	const effect = new Computed<void>(() => {
+		cleanup?.();
+		const e = {
+			onCleanup(cb) {
+				cleanup = cb;
+			},
+		} satisfies Effect;
+		effectCallback(e);
+	});
 	effect.get();
 }
 
