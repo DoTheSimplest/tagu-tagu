@@ -6,15 +6,22 @@ export function Await<T>(
 	options?: {
 		pending?: () => Element;
 		fulfilled?: (value: T) => Element;
+		rejected?: (error: any) => Element;
 	},
 ) {
 	const promiseState = useState("pending");
 
 	let value: T;
-	promise.then((v) => {
-		value = v;
-		promiseState.set("fulfilled");
-	});
+	let error: any;
+	promise
+		.then((v) => {
+			value = v;
+			promiseState.set("fulfilled");
+		})
+		.catch((reason) => {
+			error = reason;
+			promiseState.set("rejected");
+		});
 
 	const switchOptions = {
 		pending: options?.pending,
@@ -22,6 +29,9 @@ export function Await<T>(
 
 	if (options?.fulfilled) {
 		switchOptions.fulfilled = () => options.fulfilled!(value);
+	}
+	if (options?.rejected) {
+		switchOptions.rejected = () => options.rejected!(error);
 	}
 
 	for (const key in switchOptions) {

@@ -38,4 +38,23 @@ describe(Await, () => {
 		);
 		assert.deepEqual(log, ["fulfilled", "value from func()"]);
 	});
+
+	it("rejected", async () => {
+		async function func() {
+			throw "Error!";
+		}
+		const log = [] as string[];
+		await new Promise<void>((resolve) =>
+			div([
+				Await(func(), {
+					rejected: (error) =>
+						span(() => {
+							log.push("rejected", error);
+							resolve();
+						}),
+				}),
+			]),
+		);
+		assert.deepEqual(log, ["rejected", "Error!"]);
+	});
 });
