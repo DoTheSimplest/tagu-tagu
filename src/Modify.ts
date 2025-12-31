@@ -72,8 +72,8 @@ function applyStringOrStateOrBinding(
 	if (value instanceof Binding) {
 		waitForData(element, {
 			[value.key]: (data: any) => {
-				const isState = data instanceof Signal;
-				const stringOrSignal = isState
+				const isSignal = data instanceof Signal;
+				const stringOrSignal = isSignal
 					? useComputed(() => value.map(data.get()))
 					: value.map(data);
 
