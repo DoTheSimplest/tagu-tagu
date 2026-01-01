@@ -632,6 +632,29 @@ document.body.appendChild(AwaitPromiseOfElementExample());
 
 [JSFiddle](https://jsfiddle.net/do_the_simplest/dvenyrjf/2/)
 
+#### awaited `Promise<Element>` in `Element`
+```typescript
+import { Await, div, sleep, span } from "tagu-tagu";
+
+async function PromiseComponent() {
+	await sleep(2000);
+	return span("Finished!");
+}
+
+function AwaitPromiseOfElementInElementExample() {
+	return div([
+		Await(PromiseComponent(), {
+			pending: () => span("Loading..."),
+			fulfilled: (component: HTMLElement) =>
+				span([component], { css: { background: "orange" } }),
+		}),
+	]);
+}
+
+document.body.appendChild(AwaitPromiseOfElementInElementExample());
+```
+
+
 ### Data binding
 You can use data of ancestors.
 
