@@ -290,21 +290,17 @@ Modify("form", {
 import { Modify } from "tagu-tagu";
 
 // Element: querySelectorAll
-function $$Example() {
-	Modify("#fertilized", {
-		$$: {
-			button: {
-				on: {
-					click: (e) => {
-						(e.target as HTMLButtonElement).textContent = "🐣";
-					},
+Modify("#fertilized", {
+	$$: {
+		button: {
+			on: {
+				click: (e) => {
+					(e.target as HTMLButtonElement).textContent = "🐣";
 				},
 			},
 		},
-	});
-}
-
-$$Example();
+	},
+});
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/gqe5378t/1/)
 
