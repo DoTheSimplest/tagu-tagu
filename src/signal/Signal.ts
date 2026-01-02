@@ -5,14 +5,16 @@ import {
 } from "./InternalSignal";
 
 export class Signal<T = any> {
-	protected internal: InternalSignal<T>;
+	protected dependencies = new Set<Signal<any>>();
+	internal: InternalSignal<T>;
 	constructor(internal: InternalSignal<T>) {
 		this.internal = internal;
 	}
 
 	get() {
 		if (current) {
-			this.internal.subscribers.add(current);
+			this.internal.subscribers.add(current.internal as InternalComputed<any>);
+			current.dependencies.add(this);
 		}
 		return this.internal.get();
 	}
@@ -28,14 +30,15 @@ export class State<T> extends Signal<T> {
 	}
 }
 
-let current: InternalComputed<any> | undefined;
+let current: Computed<any> | undefined;
 
 export class Computed<T> extends Signal<T> {
 	constructor(map: () => T) {
 		super(
 			new InternalComputed(() => {
+				this.#resetDependencies();
 				const prev = current;
-				current = this.internal as InternalComputed<any>;
+				current = this;
 
 				const result = map();
 
@@ -43,6 +46,15 @@ export class Computed<T> extends Signal<T> {
 				return result;
 			}),
 		);
+	}
+
+	#resetDependencies() {
+		for (const dependency of this.dependencies) {
+			dependency.internal.subscribers.delete(
+				this.internal as InternalComputed<any>,
+			);
+		}
+		this.dependencies.clear();
 	}
 }
 

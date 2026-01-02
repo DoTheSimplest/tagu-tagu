@@ -66,4 +66,31 @@ describe(useState, () => {
 		counter.set(2);
 		assert.deepEqual(log, ["Odd", "cleanup", "Even"]);
 	});
+
+	it("reconstruct dependencies", () => {
+		const flag = useState(true);
+		const value1 = useState(0);
+		const value2 = useState(1);
+		const computed = useComputed(() =>
+			flag.get() ? value1.get() : value2.get(),
+		);
+
+		const log = [] as string[];
+		useEffect(() => {
+			log.push(`${computed.get()}`);
+		});
+
+		assert.deepEqual(log, ["0"]);
+		value1.set(-1);
+		assert.deepEqual(log, ["0", "-1"]);
+		value2.set(2);
+		assert.deepEqual(log, ["0", "-1"]);
+
+		flag.set(false);
+		assert.deepEqual(log, ["0", "-1", "2"]);
+		value2.set(3);
+		assert.deepEqual(log, ["0", "-1", "2", "3"]);
+		value1.set(0);
+		assert.deepEqual(log, ["0", "-1", "2", "3"]);
+	});
 });
