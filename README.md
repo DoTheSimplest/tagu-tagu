@@ -51,7 +51,7 @@ button("Hello!", {css: {background: "blue"}});
 button({css: {background: "blue"}}, "Hello!");
 ```
 
-#### text initializer
+#### text initializer 🚦(🚦: Signal is supported)
 
 ```typescript
 import { div } from "tagu-tagu";
@@ -78,7 +78,7 @@ document.body.appendChild(TextExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/yqda3rhp/9/)
 
-#### Children initializer
+#### Children initializer 🚦 (Signal of string)
 
 
 ```typescript
@@ -95,7 +95,7 @@ document.body.appendChild(ChildrenExample());
 [JSFiddle](https://jsfiddle.net/do_the_simplest/hx9mn4rg/1/)
 
 
-#### `html` initializer
+#### `html` initializer 🚦
 ```typescript
 import { div } from "tagu-tagu";
 
@@ -109,7 +109,7 @@ document.body.appendChild(HtmlExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/6p9jh45L/2/)
 
-#### `css` initializer
+#### `css` initializer 🚦
 
 ```typescript
 import { button } from "tagu-tagu";
@@ -125,7 +125,7 @@ document.body.appendChild(CssExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/mfLutvnc/1/)
 
-#### `attr` initializer
+#### `attr` initializer 🚦
 
 ```typescript
 import { input } from "tagu-tagu";
@@ -141,7 +141,7 @@ document.body.appendChild(AttrExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/r8a423pw/1/)
 
-#### `prop` initializer
+#### `prop` initializer 🚦
 
 ```typescript
 import { option, select } from "tagu-tagu";
