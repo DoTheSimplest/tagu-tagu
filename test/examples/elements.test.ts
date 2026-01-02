@@ -1,5 +1,6 @@
 import { assert, describe, it } from "vitest";
 import {
+	code,
 	h1,
 	h2,
 	h3,
@@ -32,5 +33,9 @@ describe("elements", () => {
 
 	it(`<script>`, () => {
 		assert.equal(script().tagName, "SCRIPT");
+	});
+
+	it(`<code>`, () => {
+		assert.equal(code().tagName, "CODE");
 	});
 });

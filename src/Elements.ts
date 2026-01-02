@@ -184,3 +184,7 @@ export function script(
 ) {
 	return Html("script", ...initializers);
 }
+
+export function code(...initializers: ElementInitializer<HTMLElement>[]) {
+	return Html("code", ...initializers);
+}
