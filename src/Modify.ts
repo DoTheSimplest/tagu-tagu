@@ -1,7 +1,7 @@
 import { type DataRecord, initializeData, waitForData } from "./data/data";
 import { Binding } from "./data/useBinding";
 import { type ChildType, initializeChildBlock } from "./initializeChildBlock";
-import { Signal, useComputed, useEffect } from "./signal/Signal";
+import { isSignal, type Signal, useComputed, useEffect } from "./signal/Signal";
 
 type EventListenerType<
 	TEventType2Event,
@@ -57,7 +57,7 @@ export function applyStringOrSignal(
 ) {
 	if (typeof value === "string") {
 		initialize(value);
-	} else if (value instanceof Signal) {
+	} else if (isSignal(value)) {
 		useEffect(() => initialize(value.get()));
 	} else {
 		initialize(value);
@@ -72,8 +72,7 @@ function applyStringOrStateOrBinding(
 	if (value instanceof Binding) {
 		waitForData(element, {
 			[value.key]: (data: any) => {
-				const isSignal = data instanceof Signal;
-				const stringOrSignal = isSignal
+				const stringOrSignal = isSignal(data)
 					? useComputed(() => value.map(data.get()))
 					: value.map(data);
 
@@ -237,7 +236,7 @@ function initializePropertyInitializerWithOwnAnimation<
 		if (typeof value === "string") {
 			css[key] = value;
 		}
-		if (value instanceof Signal) {
+		if (isSignal(value)) {
 			css[key] = value.get();
 		}
 	}
@@ -274,7 +273,7 @@ function initialize<TElement extends Element, TEventType2Event>(
 	initializer: ElementInitializer<TElement, TEventType2Event>,
 ) {
 	if (!element) return;
-	if (typeof initializer === "string" || initializer instanceof Signal) {
+	if (typeof initializer === "string" || isSignal(initializer)) {
 		initializeText(element, initializer);
 	} else if (Array.isArray(initializer)) {
 		initializeChildBlock(element, initializer);

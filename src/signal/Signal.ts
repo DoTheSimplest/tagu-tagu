@@ -4,8 +4,21 @@ import {
 	InternalState,
 } from "./InternalSignal";
 
-export class Signal<T = any> {
-	protected dependencies = new Set<Signal<any>>();
+export function isSignal(obj: any): obj is Signal {
+	return obj instanceof ConcreteSignal;
+}
+
+export interface Signal<T = any> {
+	get(): T;
+}
+
+export interface State<T> {
+	get(): T;
+	set(value: T): void;
+}
+
+class ConcreteSignal<T = any> {
+	protected dependencies = new Set<ConcreteSignal<any>>();
 	internal: InternalSignal<T>;
 	constructor(internal: InternalSignal<T>) {
 		this.internal = internal;
@@ -20,7 +33,7 @@ export class Signal<T = any> {
 	}
 }
 
-export class State<T> extends Signal<T> {
+class ConcreteState<T> extends ConcreteSignal<T> {
 	constructor(value: T) {
 		super(new InternalState(value));
 	}
@@ -32,7 +45,7 @@ export class State<T> extends Signal<T> {
 
 let current: Computed<any> | undefined;
 
-export class Computed<T> extends Signal<T> {
+class Computed<T> extends ConcreteSignal<T> {
 	constructor(map: () => T) {
 		super(
 			new InternalComputed(() => {
@@ -75,10 +88,10 @@ export function useEffect(effectCallback: (effect: Effect) => void) {
 	effect.get();
 }
 
-export function useState<T>(value: T) {
-	return new State(value);
+export function useState<T>(value: T): State<T> {
+	return new ConcreteState(value);
 }
 
-export function useComputed<T>(map: () => T) {
+export function useComputed<T>(map: () => T): Signal<T> {
 	return new Computed(map);
 }

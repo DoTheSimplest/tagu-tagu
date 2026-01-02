@@ -1,7 +1,7 @@
 import { nodeData } from "./data/data";
 import { ControlFlow } from "./flow/ControlFlow";
 import { applyStringOrSignal } from "./Modify";
-import { Signal } from "./signal/Signal";
+import { isSignal, type Signal } from "./signal/Signal";
 
 export type ChildType = Node | string | Signal | ControlFlow;
 export function initializeChildBlock(element: Element, children: ChildType[]) {
@@ -24,7 +24,7 @@ function initializeChild(element: Element, child: ControlFlow | Node) {
 
 export function resolveTextNode(children: ChildType[]): (Node | ControlFlow)[] {
 	return children.map((c) => {
-		if (typeof c === "string" || c instanceof Signal) {
+		if (typeof c === "string" || isSignal(c)) {
 			const textNode = document.createTextNode("");
 			applyStringOrSignal(c, (text) => {
 				textNode.textContent = text;
