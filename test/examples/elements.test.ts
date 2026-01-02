@@ -8,6 +8,7 @@ import {
 	h6,
 	Modify,
 	p,
+	pre,
 	section,
 	textarea,
 } from "../../src";
@@ -24,6 +25,7 @@ describe("elements", () => {
 			p("Hello! It's <p>"),
 			section([p("<p> in <section>"), p("2nd <p>")]),
 			textarea(),
+			pre(["This is <pre>"]),
 		]);
 	});
 });
