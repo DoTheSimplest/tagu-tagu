@@ -26,7 +26,7 @@ type $Record = Record<
 type ElementPropertyInitializer<TEventType2Event> = {
 	html?: string | Signal | Binding;
 	text?: string | Signal | Binding;
-	attr?: Record<string, string | Signal | Binding>;
+	attr?: Record<string, string | number | boolean | Signal | Binding>;
 	prop?: Record<string, any | Signal | Binding>;
 	css?: Record<string, string | Signal | Binding>;
 	on?: EventListenerRecord<TEventType2Event>;
@@ -51,9 +51,9 @@ export type ElementInitializer<
 	| ChildType[]
 	| ((element: TElement) => any);
 
-export function applyStringOrSignal(
-	value: string | Signal,
-	initialize: (text: string) => void,
+export function applyStringOrSignal<T>(
+	value: T | Signal<T>,
+	initialize: (text: T) => void,
 ) {
 	if (typeof value === "string") {
 		initialize(value);
@@ -64,10 +64,10 @@ export function applyStringOrSignal(
 	}
 }
 
-function applyStringOrStateOrBinding(
+function applyStringOrStateOrBinding<T>(
 	element: Node,
-	value: string | Signal | Binding,
-	initialize: (text: string) => void,
+	value: T | Signal<T> | Binding<T>,
+	initialize: (text: T) => void,
 ) {
 	if (value instanceof Binding) {
 		waitForData(element, {
@@ -123,7 +123,9 @@ function initializeStyle(
 
 function initializeAttributes(
 	element: Element,
-	attr: Record<string, string | Signal | Binding> | undefined,
+	attr:
+		| Record<string, string | number | boolean | Signal | Binding>
+		| undefined,
 ) {
 	for (const attrName in attr) {
 		const value = attr[attrName];
