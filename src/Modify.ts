@@ -288,6 +288,22 @@ function initialize<TElement extends Element, TEventType2Event>(
 	}
 }
 
+/**
+ * Apply one or more initializers to an existing element or a selector.
+ *
+ * The initializer(s) may include text, attributes, props, CSS, events,
+ * child nodes, Signals or Bindings. If an initializer returns a Promise,
+ * Modify will await any returned Promise before continuing to the next initializer.
+ *
+ * @param elementOrSelector - Element instance or CSS selector string to modify.
+ * @param initializers - One or more initializers (text, ElementPropertyInitializer, children array or callback).
+ * @returns The modified element.
+ *
+ * @example
+ * const el = Modify("form", {
+ *   $: { "#name": { prop: { defaultValue: "Einstein" } } }
+ * });
+ */
 export function Modify<T extends Element>(
 	elementOrSelector: T | string,
 	...initializers: ElementInitializer<T>[]
