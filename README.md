@@ -206,7 +206,7 @@ function DataFromParentExample() {
 
 document.body.appendChild(DataFromParentExample());
 ```
-[JSFiddle](https://jsfiddle.net/do_the_simplest/eh7bdrvL/4/)
+[JSFiddle](https://jsfiddle.net/do_the_simplest/eh7bdrvL/7/)
 
 #### Modify existing element
 You can use initializers for existing element.
