@@ -3,13 +3,13 @@ import { useState } from "../../src";
 import { button, div, input, span } from "../../src/Elements";
 import { If } from "../../src/flow/If";
 import { Switch } from "../../src/flow/Switch";
-import { Modify } from "../../src/Modify";
+import { $ } from "../../src/Modify";
 
 describe("control-flow", () => {
 	it("If then", () => {
 		const isDisplayed = useState(false);
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			input({
 				attr: { type: "checkbox", checked: isDisplayed },
 				on: {
@@ -30,7 +30,7 @@ describe("control-flow", () => {
 	it("If else", () => {
 		const isDisplayed = useState(false);
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			input({
 				attr: { type: "checkbox", checked: isDisplayed },
 				on: {
@@ -56,7 +56,7 @@ describe("control-flow", () => {
 			"triangle" as "triangle" | "rectangle" | "circle" | "pentagon",
 		);
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			button("Triangle", { on: { click: () => state.set("triangle") } }),
 			button("Rectangle", { on: { click: () => state.set("rectangle") } }),
 			button("Circle", { on: { click: () => state.set("circle") } }),

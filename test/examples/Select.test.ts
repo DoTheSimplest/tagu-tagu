@@ -1,17 +1,9 @@
 import { describe, it } from "vitest";
-import {
-	button,
-	For,
-	input,
-	Modify,
-	option,
-	select,
-	useState,
-} from "../../src";
+import { $, button, For, input, option, select, useState } from "../../src";
 
 describe(select, () => {
 	it("<option> simplest", () => {
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			select([option(["Apple"]), option(["Orange"]), option(["Banana"])]),
 		]);
 	});
@@ -38,7 +30,7 @@ describe(select, () => {
 			newValue.set(value);
 		}
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			select(
 				[
 					option({ prop: { value: "" } }, ["-- choose an item --"]),

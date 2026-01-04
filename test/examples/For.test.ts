@@ -1,11 +1,11 @@
 import { describe, it } from "vitest";
-import { button, div, For, Modify, useState } from "../../src";
+import { $, button, div, For, useState } from "../../src";
 
 describe("For", () => {
 	it("shows children from data", () => {
 		const numbers = useState([1, 2, 3]);
 
-		Modify(document.body, { html: "" }, [For(numbers, (n) => button(`${n}`))]);
+		$(document.body, { html: "" }, [For(numbers, (n) => button(`${n}`))]);
 	});
 
 	it("adds and removes item", () => {
@@ -20,7 +20,7 @@ describe("For", () => {
 			numbers.set(numbers.get().filter((value) => value.n !== n));
 		}
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div([
 				For(numbers, (n) =>
 					button(`${n.n}`, {

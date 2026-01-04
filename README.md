@@ -185,7 +185,7 @@ console.log(await waitForData(element, "my-data-key")); // Hello World!
 [JSFiddle](https://jsfiddle.net/do_the_simplest/9cLtyzkm/1/)
 
 ```typescript
-import { div, Modify, waitForData } from "tagu-tagu";
+import { div, $, waitForData } from "tagu-tagu";
 
 /**
  * Node can get data from ancestors.
@@ -201,20 +201,20 @@ function DataFromParentExample() {
 	waitForData(child, "my-data-key").then((data) => {
 		child.textContent = `Child: ${data}`; // displayed
 	});
-	return Modify(parent, [Modify(element, [child])]);
+	return $(parent, [$(element, [child])]);
 }
 
 document.body.appendChild(DataFromParentExample());
 ```
-[JSFiddle](https://jsfiddle.net/do_the_simplest/eh7bdrvL/4/)
+[JSFiddle](https://jsfiddle.net/do_the_simplest/eh7bdrvL/7/)
 
 #### Modify existing element
 You can use initializers for existing element.
 
 ```typescript
-import { Modify } from "tagu-tagu";
+import { $ } from "tagu-tagu";
 
-Modify(document.body, {
+$(document.body, {
 	text: "💣",
 	css: {
 		background: "skyblue",
@@ -227,7 +227,7 @@ Modify(document.body, {
 });
 
 ```
-[JSFiddle](https://jsfiddle.net/do_the_simplest/o87nw6zL/15/)
+[JSFiddle](https://jsfiddle.net/do_the_simplest/o87nw6zL/18/)
 
 
 #### `$` initializer
@@ -240,10 +240,10 @@ Modify(document.body, {
 <script type="module" src="index.ts"></script>
 ```
 ```typescript
-import { Modify, style } from "tagu-tagu";
+import { $, style } from "tagu-tagu";
 
 // Element: querySelector
-Modify("form", {
+$("form", {
 	$: {
 		"#name": { prop: { defaultValue: "Einstein" } },
 		"#age": { attr: { type: "number" }, prop: { defaultValue: 26 } },
@@ -263,7 +263,7 @@ Modify("form", {
 	},
 });
 ```
-[JSFiddle](https://jsfiddle.net/do_the_simplest/b8roj7wx/2/)
+[JSFiddle](https://jsfiddle.net/do_the_simplest/b8roj7wx/4/)
 
 #### `$$` initializer
 ```html
@@ -287,10 +287,10 @@ Modify("form", {
 <script type="module" src="index.ts"></script>
 ```
 ```typescript
-import { Modify } from "tagu-tagu";
+import { $ } from "tagu-tagu";
 
 // Element: querySelectorAll
-Modify("#fertilized", {
+$("#fertilized", {
 	$$: {
 		button: {
 			on: {
@@ -302,14 +302,14 @@ Modify("#fertilized", {
 	},
 });
 ```
-[JSFiddle](https://jsfiddle.net/do_the_simplest/gqe5378t/2/)
+[JSFiddle](https://jsfiddle.net/do_the_simplest/gqe5378t/6/)
 
-or you can use `ModifyAll`
+or you can use `$$`
 
 ```typescript
-import { ModifyAll } from "tagu-tagu";
+import { $$ } from "tagu-tagu";
 
-ModifyAll("#fertilized button", {
+$$("#fertilized button", {
 	on: {
 		click: (e) => {
 			(e.target as HTMLButtonElement).textContent = "🐣";
@@ -317,7 +317,7 @@ ModifyAll("#fertilized button", {
 	},
 });
 ```
-[JSFiddle](https://jsfiddle.net/do_the_simplest/fn10gzp4/7/)
+[JSFiddle](https://jsfiddle.net/do_the_simplest/fn10gzp4/9/)
 
 #### Callback initializer
 ```typescript
@@ -694,15 +694,15 @@ Since `tagu-tagu` is just a helper, you can migrate from anywhere.
 ## Comparison
 |jquery|tagu-tagu|
 |-----|------|
-|`$(element).text("Hello")`|`Modify(element, { text: "Hello" })`|
-|`$(element).html("<button>click</button>")`|`Modify(element, { html: "<button>click</button>" })`|
-|`$(element).css("background", "blue")`|`Modify(element, { css: { background: "blue" } })`|
-|`$(element).attr("id", "element-id")`|`Modify(element, { attr: { id: "element-id" } })`|
-|`$(element).prop("checked", true)`|`Modify(element, { prop: { checked: true } })`|
-|`$(element).on("click", handleClick)`|`Modify(element, { on: { click: handleClick } })`|
-|`$(element).data("answer", 42)`|`Modify(element, { data: { answer: 42} })`|
-|`$(element).find("button").text("Hello")`|`Modify(element, { $$: { button: { text: "Hello" } } })`|
-|`$(element).animate({ width: "50%"}, 1000).animate({ fontSize: "32px" }, 1000)`|`Modify(element, { css: { width: "50%" }, animate: 1000 }, { css: { "font-size": "32px" }, animate: 1000 })`|
+|`$(element).text("Hello")`|`$(element, { text: "Hello" })`|
+|`$(element).html("<button>click</button>")`|`$(element, { html: "<button>click</button>" })`|
+|`$(element).css("background", "blue")`|`$(element, { css: { background: "blue" } })`|
+|`$(element).attr("id", "element-id")`|`$(element, { attr: { id: "element-id" } })`|
+|`$(element).prop("checked", true)`|`$(element, { prop: { checked: true } })`|
+|`$(element).on("click", handleClick)`|`$(element, { on: { click: handleClick } })`|
+|`$(element).data("answer", 42)`|`$(element, { data: { answer: 42} })`|
+|`$(element).find("button").text("Hello")`|`$(element, { $$: { button: { text: "Hello" } } })`|
+|`$(element).animate({ width: "50%"}, 1000).animate({ fontSize: "32px" }, 1000)`|`$(element, { css: { width: "50%" }, animate: 1000 }, { css: { "font-size": "32px" }, animate: 1000 })`|
 
 |react|tagu-tagu|
 |---|---|

@@ -88,6 +88,19 @@ export function useEffect(effectCallback: (effect: Effect) => void) {
 	effect.get();
 }
 
+/**
+ * Create a reactive state container (Signal + mutator).
+ *
+ * The returned object has `get()` and `set(value)` methods. Use in combination
+ * with `useComputed` and `useEffect` to react to updates.
+ *
+ * @param value - Initial state value.
+ * @returns A State object with `get()` and `set()` methods.
+ *
+ * @example
+ * const counter = useState(0);
+ * counter.set(counter.get() + 1);
+ */
 export function useState<T>(value: T): State<T> {
 	return new ConcreteState(value);
 }

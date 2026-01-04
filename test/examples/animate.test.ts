@@ -1,10 +1,10 @@
 import { describe, it } from "vitest";
-import { div, Modify, ModifyAsync, useState } from "../../src";
+import { $, div, ModifyAsync, useState } from "../../src";
 import { sleep } from "../../src/sleep";
 
 describe("animate", () => {
 	it("simple duration", () => {
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div(
 				"Hello!",
 				{ css: { background: "blue" } },
@@ -15,7 +15,7 @@ describe("animate", () => {
 	});
 
 	it("state", () => {
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div(
 				"Hello!",
 				{ css: { background: "blue" } },
@@ -26,7 +26,7 @@ describe("animate", () => {
 	});
 
 	it("{}", () => {
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div(
 				"Hello!",
 				{ css: { background: "blue" } },
@@ -36,7 +36,7 @@ describe("animate", () => {
 		]);
 	});
 	it("{duration: 1000}", () => {
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div(
 				"Hello!",
 				{ css: { background: "blue" } },
@@ -47,7 +47,7 @@ describe("animate", () => {
 	});
 
 	it(`{ easing: undefined } is "swing"`, () => {
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div(
 				"Hello!",
 				{ css: { left: "0px", background: "blue", position: "absolute" } },
@@ -60,7 +60,7 @@ describe("animate", () => {
 	});
 
 	it(`{ easing: "linear" }`, () => {
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div(
 				"Hello!",
 				{ css: { left: "0px", background: "blue", position: "absolute" } },
@@ -73,7 +73,7 @@ describe("animate", () => {
 	});
 
 	it(`async callback`, () => {
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div(
 				"Hello!",
 				async () => {
@@ -87,7 +87,7 @@ describe("animate", () => {
 
 describe(ModifyAsync, () => {
 	it(`animates multiple styles`, () => {
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div(
 				"Hello!",
 				{

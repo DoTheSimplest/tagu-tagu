@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { Modify, Svg } from "../../src";
+import { $, Svg } from "../../src";
 
 describe(Svg, () => {
 	it("polygon", () => {
@@ -9,7 +9,7 @@ describe(Svg, () => {
 				fill: "blue",
 			},
 		});
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			Svg(
 				"svg",
 				{

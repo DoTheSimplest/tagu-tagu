@@ -1,11 +1,11 @@
 import { describe, it } from "vitest";
 import { useComputed, useState } from "../../src";
 import { button, div, span, style } from "../../src/Elements";
-import { Modify } from "../../src/Modify";
+import { $ } from "../../src/Modify";
 
 describe("getting started", () => {
 	it("add button", () => {
-		Modify(document.body, { html: "" }, [button("Click me!")]);
+		$(document.body, { html: "" }, [button("Click me!")]);
 	});
 	it("counter", () => {
 		const count = useState(4);
@@ -17,7 +17,7 @@ describe("getting started", () => {
 			count.set(count.get() + 1);
 		}
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			button("-", { on: { click: decrementCount } }),
 			span(count),
 			button("+", { on: { click: incrementCount } }),
@@ -26,7 +26,7 @@ describe("getting started", () => {
 	it("State can be assigned as css value", () => {
 		const background = useState("green" as "red" | "green" | "blue");
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div({
 				css: { width: "300px", height: "300px", background: background },
 			}),
@@ -39,7 +39,7 @@ describe("getting started", () => {
 	it("State can be assigned as attr value", () => {
 		const background = useState("small" as "small" | "large");
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			button("small", { on: { click: () => background.set("small") } }),
 			button("large", { on: { click: () => background.set("large") } }),
 			div(
@@ -76,7 +76,7 @@ describe("getting started", () => {
 			count.set(count.get() - 1);
 		}
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div({
 				text: count,
 			}),
@@ -95,7 +95,7 @@ describe("getting started", () => {
 			count.set(count.get() - 1);
 		}
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			div({
 				html: useComputed(() => `${count.get()}`),
 			}),
@@ -105,8 +105,8 @@ describe("getting started", () => {
 	});
 
 	it("Modify by selector", () => {
-		Modify(document.body, { html: "" }, [div({ attr: { id: "my-div" } })]);
-		Modify("#my-div", {
+		$(document.body, { html: "" }, [div({ attr: { id: "my-div" } })]);
+		$("#my-div", {
 			css: { background: "blue", width: "100px", height: "100px" },
 		});
 	});

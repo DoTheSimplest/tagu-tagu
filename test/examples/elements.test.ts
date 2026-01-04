@@ -1,5 +1,6 @@
 import { assert, describe, it } from "vitest";
 import {
+	$,
 	code,
 	h1,
 	h2,
@@ -7,7 +8,6 @@ import {
 	h4,
 	h5,
 	h6,
-	Modify,
 	p,
 	pre,
 	script,
@@ -17,7 +17,7 @@ import {
 
 describe("elements", () => {
 	it("<h1> - <h6>, <p>, <section>, <textarea>", () => {
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			h1("Hello <h1>"),
 			h2("Hello <h2>"),
 			h3("Hello <h3>"),

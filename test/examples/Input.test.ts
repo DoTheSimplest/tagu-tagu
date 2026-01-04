@@ -1,11 +1,9 @@
 import { describe, it } from "vitest";
-import { button, input, Modify, useState } from "../../src";
+import { $, button, input, useState } from "../../src";
 
 describe(input, () => {
 	it("checkbox", () => {
-		Modify(document.body, { html: "" }, [
-			input({ attr: { type: "checkbox" } }),
-		]);
+		$(document.body, { html: "" }, [input({ attr: { type: "checkbox" } })]);
 	});
 	it("two checkboxes", () => {
 		const isChedked = useState(false);
@@ -14,7 +12,7 @@ describe(input, () => {
 			isChedked.set(!isChedked.get());
 		};
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			input({
 				attr: {
 					type: "checkbox",
@@ -40,7 +38,7 @@ describe(input, () => {
 			value.set(newValue);
 		}
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			input({
 				attr: { value },
 				on: { input: updateValue },
@@ -63,7 +61,7 @@ describe(input, () => {
 			value.set("");
 		}
 
-		Modify(document.body, { html: "" }, [
+		$(document.body, { html: "" }, [
 			input({
 				attr: { value },
 				on: { input: updateValue },
