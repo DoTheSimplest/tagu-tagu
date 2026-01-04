@@ -304,12 +304,12 @@ $("#fertilized", {
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/gqe5378t/6/)
 
-or you can use `ModifyAll`
+or you can use `$$`
 
 ```typescript
-import { ModifyAll } from "tagu-tagu";
+import { $$ } from "tagu-tagu";
 
-ModifyAll("#fertilized button", {
+$$("#fertilized button", {
 	on: {
 		click: (e) => {
 			(e.target as HTMLButtonElement).textContent = "🐣";
