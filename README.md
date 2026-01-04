@@ -317,7 +317,7 @@ $$("#fertilized button", {
 	},
 });
 ```
-[JSFiddle](https://jsfiddle.net/do_the_simplest/fn10gzp4/7/)
+[JSFiddle](https://jsfiddle.net/do_the_simplest/fn10gzp4/9/)
 
 #### Callback initializer
 ```typescript
