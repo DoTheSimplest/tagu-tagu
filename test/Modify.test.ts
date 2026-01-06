@@ -1,5 +1,15 @@
 import { assert, describe, it } from "vitest";
-import { $, $$, button, div, Modify, ModifyAll, option, select } from "../src";
+import {
+	$,
+	$$,
+	append,
+	button,
+	div,
+	Modify,
+	ModifyAll,
+	option,
+	select,
+} from "../src";
 
 describe(Modify, () => {
 	it("text", () => {
@@ -24,6 +34,15 @@ describe(Modify, () => {
 		assert.deepEqual(
 			[...container.children].map((c) => c.textContent),
 			["World!"],
+		);
+	});
+	it("append", () => {
+		const container = div();
+		$(container, [div("Hello!")]);
+		$(container, append([div("World!")]));
+		assert.deepEqual(
+			[...container.children].map((c) => c.textContent),
+			["Hello!", "World!"],
 		);
 	});
 });
