@@ -3,7 +3,7 @@ import { $, button, input, useState } from "../../src";
 
 describe(input, () => {
 	it("checkbox", () => {
-		$(document.body, { html: "" }, [input({ attr: { type: "checkbox" } })]);
+		$(document.body, [input({ attr: { type: "checkbox" } })]);
 	});
 	it("two checkboxes", () => {
 		const isChedked = useState(false);
@@ -12,7 +12,7 @@ describe(input, () => {
 			isChedked.set(!isChedked.get());
 		};
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			input({
 				attr: {
 					type: "checkbox",
@@ -38,7 +38,7 @@ describe(input, () => {
 			value.set(newValue);
 		}
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			input({
 				attr: { value },
 				on: { input: updateValue },
@@ -61,7 +61,7 @@ describe(input, () => {
 			value.set("");
 		}
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			input({
 				attr: { value },
 				on: { input: updateValue },
