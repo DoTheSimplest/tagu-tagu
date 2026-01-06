@@ -9,7 +9,7 @@ describe("control-flow", () => {
 	it("If then", () => {
 		const isDisplayed = useState(false);
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			input({
 				attr: { type: "checkbox", checked: isDisplayed },
 				on: {
@@ -30,7 +30,7 @@ describe("control-flow", () => {
 	it("If else", () => {
 		const isDisplayed = useState(false);
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			input({
 				attr: { type: "checkbox", checked: isDisplayed },
 				on: {
@@ -56,7 +56,7 @@ describe("control-flow", () => {
 			"triangle" as "triangle" | "rectangle" | "circle" | "pentagon",
 		);
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			button("Triangle", { on: { click: () => state.set("triangle") } }),
 			button("Rectangle", { on: { click: () => state.set("rectangle") } }),
 			button("Circle", { on: { click: () => state.set("circle") } }),
