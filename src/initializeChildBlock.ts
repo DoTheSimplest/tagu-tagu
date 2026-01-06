@@ -5,12 +5,19 @@ import { isSignal, type Signal } from "./signal/Signal";
 
 export type ChildType = Node | string | Signal | ControlFlow;
 export function initializeChildBlock(element: Element, children: ChildType[]) {
-	const resolvedChildren = resolveTextNode(children);
-	connectNeighbours(resolvedChildren);
+	element.innerHTML = "";
+	append(children)(element);
+}
 
-	for (const child of resolvedChildren) {
-		initializeChild(element, child);
-	}
+export function append(children: ChildType[]) {
+	return (element: Element) => {
+		const resolvedChildren = resolveTextNode(children);
+		connectNeighbours(resolvedChildren);
+
+		for (const child of resolvedChildren) {
+			initializeChild(element, child);
+		}
+	};
 }
 
 function initializeChild(element: Element, child: ControlFlow | Node) {
