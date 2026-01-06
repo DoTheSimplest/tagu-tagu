@@ -5,7 +5,7 @@ describe("For", () => {
 	it("shows children from data", () => {
 		const numbers = useState([1, 2, 3]);
 
-		$(document.body, { html: "" }, [For(numbers, (n) => button(`${n}`))]);
+		$(document.body, [For(numbers, (n) => button(`${n}`))]);
 	});
 
 	it("adds and removes item", () => {
@@ -20,7 +20,7 @@ describe("For", () => {
 			numbers.set(numbers.get().filter((value) => value.n !== n));
 		}
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div([
 				For(numbers, (n) =>
 					button(`${n.n}`, {
