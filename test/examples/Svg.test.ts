@@ -9,7 +9,7 @@ describe(Svg, () => {
 				fill: "blue",
 			},
 		});
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			Svg(
 				"svg",
 				{
