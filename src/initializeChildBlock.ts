@@ -6,10 +6,10 @@ import { isSignal, type Signal } from "./signal/Signal";
 export type ChildType = Node | string | Signal | ControlFlow;
 export function initializeChildBlock(element: Element, children: ChildType[]) {
 	element.innerHTML = "";
-	append(children)(element);
+	append(...children)(element);
 }
 
-export function append(children: ChildType[]) {
+export function append(...children: ChildType[]) {
 	return (element: Element) => {
 		const resolvedChildren = resolveTextNode(children);
 		connectNeighbours(resolvedChildren);

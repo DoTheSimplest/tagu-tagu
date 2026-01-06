@@ -39,7 +39,7 @@ describe(Modify, () => {
 	it("append", () => {
 		const container = div();
 		$(container, [div("Hello!")]);
-		$(container, append([div("World!")]));
+		$(container, append(div("World!")));
 		assert.deepEqual(
 			[...container.children].map((c) => c.textContent),
 			["Hello!", "World!"],
