@@ -30,7 +30,7 @@ describe(Modify, () => {
 
 describe(ModifyAll, () => {
 	it("text", () => {
-		$(document.body, { html: "" }, [button(), button(), button()]);
+		$(document.body, [button(), button(), button()]);
 		$$("button", { text: "my-button" });
 		assert.deepEqual(
 			[...document.body.children].map((b) => b.textContent),
