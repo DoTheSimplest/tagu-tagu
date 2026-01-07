@@ -1,5 +1,6 @@
 import { describe, it } from "vitest";
 import { $, div, ModifyAsync, useState } from "../../src";
+import { animate } from "../../src/animate";
 import { sleep } from "../../src/sleep";
 
 describe("animate", () => {
@@ -9,6 +10,17 @@ describe("animate", () => {
 				"Hello!",
 				{ css: { background: "blue" } },
 				{ css: { background: "lime" }, animate: 1000 },
+				{ text: "Animation Finished" },
+			),
+		]);
+	});
+
+	it("animate", () => {
+		$(document.body, [
+			div(
+				"Hello!",
+				{ css: { background: "blue" } },
+				animate({ background: "lime" }, 1000),
 				{ text: "Animation Finished" },
 			),
 		]);
