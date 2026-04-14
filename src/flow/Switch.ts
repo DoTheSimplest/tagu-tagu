@@ -76,7 +76,7 @@ export class SwitchFlow<T> extends ControlFlow {
 			return defaultElement;
 		};
 
-		const update = () => {
+		useEffect(() => {
 			const value = this.#value.get();
 			const nextNode = getNextNodeSibling(this);
 
@@ -87,8 +87,6 @@ export class SwitchFlow<T> extends ControlFlow {
 			currentElement?.remove();
 			newElement && element.insertBefore(newElement, nextNode);
 			currentElement = newElement;
-		};
-
-		useEffect(update);
+		});
 	}
 }
