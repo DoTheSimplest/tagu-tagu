@@ -1,5 +1,5 @@
 import { assert, describe, expect, it } from "vitest";
-import { div, If, useState } from "../../src";
+import { div, For, If, useState } from "../../src";
 import { createContext, useContext } from "../../src/context";
 
 describe("context", () => {
@@ -50,5 +50,24 @@ describe("context", () => {
 		assert.deepEqual(log, []);
 		visible.set(true);
 		assert.deepEqual(log, ["dark"]);
+	});
+
+	it("can be used in For", async () => {
+		const log = [] as string[];
+
+		const ThemeContext = createContext<string>();
+
+		function Child() {
+			const value = useContext(ThemeContext) as string;
+			log.push(value);
+			return div();
+		}
+
+		const items = useState([1, 2]);
+		ThemeContext("dark", () => div([For(items, Child)]));
+
+		assert.deepEqual(log, ["dark", "dark"]);
+		items.set([...items.get(), 3]);
+		assert.deepEqual(log, ["dark", "dark", "dark"]);
 	});
 });
