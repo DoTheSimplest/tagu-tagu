@@ -77,16 +77,15 @@ export class SwitchFlow<T> extends ControlFlow {
 			return defaultElement;
 		};
 
-		const dataStack = contextData.save();
+		const dataStack = contextData.cloneStack();
 
 		useEffect(() => {
 			const value = this.#value.get();
 			const nextNode = getNextNodeSibling(this);
 
-			const prevStack = contextData.context2DataStack;
-			contextData.context2DataStack = dataStack;
-			const newElement = getElementFromValue(value);
-			contextData.context2DataStack = prevStack;
+			const newElement = contextData.saveAndRestore(dataStack, () =>
+				getElementFromValue(value),
+			);
 
 			// data
 			newElement && nodeData.resolveCallbacks(element, newElement);

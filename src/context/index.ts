@@ -21,13 +21,24 @@ class ContextData {
 		this.context2DataStack.get(context)?.pop();
 	}
 
-	save() {
+	cloneStack() {
 		const result = new Map<DataContext<any>, any[]>();
 		for (const key of this.context2DataStack.keys()) {
 			const value = this.context2DataStack.get(key);
 			if (value) result.set(key, [...value]);
 		}
 		return result;
+	}
+
+	saveAndRestore<T>(
+		stack: Map<DataContext<any>, any[]>,
+		createElement: () => T,
+	) {
+		const prevStack = this.context2DataStack;
+		this.context2DataStack = stack;
+		const newElement = createElement();
+		this.context2DataStack = prevStack;
+		return newElement;
 	}
 }
 
