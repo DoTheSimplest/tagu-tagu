@@ -29,14 +29,27 @@ describe(Modify, () => {
 			assert.equal(document.body.textContent, "World!");
 		});
 	});
-	it("attr", () => {
-		function AttrExample() {
-			return select([option("One"), option("Two"), option("Three")], {
-				prop: { selectedIndex: 1 },
-			});
-		}
-		const selectElement = AttrExample();
-		assert.equal(selectElement.selectedIndex, 1);
+	describe("prop", () => {
+		it("number", () => {
+			function PropExample() {
+				return select([option("One"), option("Two"), option("Three")], {
+					prop: { selectedIndex: 1 },
+				});
+			}
+			const selectElement = PropExample();
+			assert.equal(selectElement.selectedIndex, 1);
+		});
+		it("function", () => {
+			const selectedIndex = useState(1);
+			function PropExample() {
+				return select([option("One"), option("Two"), option("Three")], {
+					prop: { selectedIndex: () => selectedIndex.get() },
+				});
+			}
+			const selectElement = PropExample();
+			selectedIndex.set(2);
+			assert.equal(selectElement.selectedIndex, 2);
+		});
 	});
 	it("[]", () => {
 		const container = div();
