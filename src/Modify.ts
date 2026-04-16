@@ -345,3 +345,5 @@ export function ModifyAsync<T extends Element>(
 
 export const $ = Modify;
 export const $$ = ModifyAll;
+
+export { append } from "./initializeChildBlock";

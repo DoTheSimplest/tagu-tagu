@@ -1,3 +1,4 @@
+import { contextData } from "../context";
 import { nodeData } from "../data/data";
 import { getNextNodeSibling } from "../initializeChildBlock";
 import { type Signal, useEffect } from "../signal/Signal";
@@ -22,6 +23,8 @@ export class ForMap<T> extends ControlFlow {
 		const model2View = new Map<T, Node>();
 		const view2Model = new Map<Node, T>();
 
+		const currentContext = contextData.cloneContext();
+
 		// When list is updated, check diffs.
 		// Create UIs for added models and delete UIs for deleted models.
 		const updateListUI = () => {
@@ -41,7 +44,9 @@ export class ForMap<T> extends ControlFlow {
 
 			// Add UIs for added models
 			for (const item of itemsAdded) {
-				const mapped = this.map(item);
+				const mapped = contextData.saveAndRestore(currentContext, () =>
+					this.map(item),
+				);
 				const resolved =
 					typeof mapped === "string" ? document.createTextNode(mapped) : mapped;
 

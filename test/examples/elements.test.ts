@@ -17,7 +17,7 @@ import {
 
 describe("elements", () => {
 	it("<h1> - <h6>, <p>, <section>, <textarea>", () => {
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			h1("Hello <h1>"),
 			h2("Hello <h2>"),
 			h3("Hello <h3>"),

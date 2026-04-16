@@ -3,7 +3,7 @@ import { $, button, For, input, option, select, useState } from "../../src";
 
 describe(select, () => {
 	it("<option> simplest", () => {
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			select([option(["Apple"]), option(["Orange"]), option(["Banana"])]),
 		]);
 	});
@@ -30,7 +30,7 @@ describe(select, () => {
 			newValue.set(value);
 		}
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			select(
 				[
 					option({ prop: { value: "" } }, ["-- choose an item --"]),

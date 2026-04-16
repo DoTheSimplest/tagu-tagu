@@ -1,5 +1,15 @@
 import { assert, describe, it } from "vitest";
-import { $, $$, button, Modify, ModifyAll, option, select } from "../src";
+import {
+	$,
+	$$,
+	append,
+	button,
+	div,
+	Modify,
+	ModifyAll,
+	option,
+	select,
+} from "../src";
 
 describe(Modify, () => {
 	it("text", () => {
@@ -17,11 +27,29 @@ describe(Modify, () => {
 		const selectElement = AttrExample();
 		assert.equal(selectElement.selectedIndex, 1);
 	});
+	it("[]", () => {
+		const container = div();
+		$(container, [div("Hello!")]);
+		$(container, [div("World!")]);
+		assert.deepEqual(
+			[...container.children].map((c) => c.textContent),
+			["World!"],
+		);
+	});
+	it("append", () => {
+		const container = div();
+		$(container, [div("Hello!")]);
+		$(container, append(div("World!")));
+		assert.deepEqual(
+			[...container.children].map((c) => c.textContent),
+			["Hello!", "World!"],
+		);
+	});
 });
 
 describe(ModifyAll, () => {
 	it("text", () => {
-		$(document.body, { html: "" }, [button(), button(), button()]);
+		$(document.body, [button(), button(), button()]);
 		$$("button", { text: "my-button" });
 		assert.deepEqual(
 			[...document.body.children].map((b) => b.textContent),

@@ -1,3 +1,4 @@
+import { contextData } from "../context";
 import { nodeData } from "../data/data";
 import { getNextNodeSibling } from "../initializeChildBlock";
 import { type Signal, useEffect } from "../signal/Signal";
@@ -58,12 +59,17 @@ export class SwitchFlow<T> extends ControlFlow {
 		let currentElement: Element | undefined;
 		let defaultElement: Element | undefined;
 
+		// current data context
+		const currentContext = contextData.cloneContext();
+
 		const getElementFromValue = (value: T) => {
 			const section = value2Section.get(value);
 			if (section) {
 				// If element is not created yet, create and cache
 				if (!value2Element.has(value)) {
-					const newElement = section.show();
+					const newElement = contextData.saveAndRestore(currentContext, () =>
+						section.show(),
+					);
 					value2Element.set(value, newElement);
 				}
 				return value2Element.get(value)!;
@@ -76,19 +82,18 @@ export class SwitchFlow<T> extends ControlFlow {
 			return defaultElement;
 		};
 
-		const update = () => {
+		useEffect(() => {
 			const value = this.#value.get();
 			const nextNode = getNextNodeSibling(this);
 
 			const newElement = getElementFromValue(value);
+
 			// data
 			newElement && nodeData.resolveCallbacks(element, newElement);
 			// insert `newElement`
 			currentElement?.remove();
 			newElement && element.insertBefore(newElement, nextNode);
 			currentElement = newElement;
-		};
-
-		useEffect(update);
+		});
 	}
 }

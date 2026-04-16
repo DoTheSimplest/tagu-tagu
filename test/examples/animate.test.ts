@@ -1,10 +1,11 @@
 import { describe, it } from "vitest";
 import { $, div, ModifyAsync, useState } from "../../src";
+import { animate } from "../../src/animate";
 import { sleep } from "../../src/sleep";
 
 describe("animate", () => {
 	it("simple duration", () => {
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div(
 				"Hello!",
 				{ css: { background: "blue" } },
@@ -14,8 +15,19 @@ describe("animate", () => {
 		]);
 	});
 
+	it("animate", () => {
+		$(document.body, [
+			div(
+				"Hello!",
+				{ css: { background: "blue" } },
+				animate({ background: "lime" }, 1000),
+				{ text: "Animation Finished" },
+			),
+		]);
+	});
+
 	it("state", () => {
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div(
 				"Hello!",
 				{ css: { background: "blue" } },
@@ -26,7 +38,7 @@ describe("animate", () => {
 	});
 
 	it("{}", () => {
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div(
 				"Hello!",
 				{ css: { background: "blue" } },
@@ -36,7 +48,7 @@ describe("animate", () => {
 		]);
 	});
 	it("{duration: 1000}", () => {
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div(
 				"Hello!",
 				{ css: { background: "blue" } },
@@ -47,7 +59,7 @@ describe("animate", () => {
 	});
 
 	it(`{ easing: undefined } is "swing"`, () => {
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div(
 				"Hello!",
 				{ css: { left: "0px", background: "blue", position: "absolute" } },
@@ -60,7 +72,7 @@ describe("animate", () => {
 	});
 
 	it(`{ easing: "linear" }`, () => {
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div(
 				"Hello!",
 				{ css: { left: "0px", background: "blue", position: "absolute" } },
@@ -73,7 +85,7 @@ describe("animate", () => {
 	});
 
 	it(`async callback`, () => {
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div(
 				"Hello!",
 				async () => {
@@ -87,7 +99,7 @@ describe("animate", () => {
 
 describe(ModifyAsync, () => {
 	it(`animates multiple styles`, () => {
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div(
 				"Hello!",
 				{

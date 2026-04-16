@@ -5,7 +5,7 @@ import { $ } from "../../src/Modify";
 
 describe("getting started", () => {
 	it("add button", () => {
-		$(document.body, { html: "" }, [button("Click me!")]);
+		$(document.body, [button("Click me!")]);
 	});
 	it("counter", () => {
 		const count = useState(4);
@@ -17,7 +17,7 @@ describe("getting started", () => {
 			count.set(count.get() + 1);
 		}
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			button("-", { on: { click: decrementCount } }),
 			span(count),
 			button("+", { on: { click: incrementCount } }),
@@ -26,7 +26,7 @@ describe("getting started", () => {
 	it("State can be assigned as css value", () => {
 		const background = useState("green" as "red" | "green" | "blue");
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div({
 				css: { width: "300px", height: "300px", background: background },
 			}),
@@ -39,7 +39,7 @@ describe("getting started", () => {
 	it("State can be assigned as attr value", () => {
 		const background = useState("small" as "small" | "large");
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			button("small", { on: { click: () => background.set("small") } }),
 			button("large", { on: { click: () => background.set("large") } }),
 			div(
@@ -76,7 +76,7 @@ describe("getting started", () => {
 			count.set(count.get() - 1);
 		}
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div({
 				text: count,
 			}),
@@ -95,7 +95,7 @@ describe("getting started", () => {
 			count.set(count.get() - 1);
 		}
 
-		$(document.body, { html: "" }, [
+		$(document.body, [
 			div({
 				html: useComputed(() => `${count.get()}`),
 			}),
@@ -105,7 +105,7 @@ describe("getting started", () => {
 	});
 
 	it("Modify by selector", () => {
-		$(document.body, { html: "" }, [div({ attr: { id: "my-div" } })]);
+		$(document.body, [div({ attr: { id: "my-div" } })]);
 		$("#my-div", {
 			css: { background: "blue", width: "100px", height: "100px" },
 		});
