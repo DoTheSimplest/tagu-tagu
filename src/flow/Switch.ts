@@ -1,3 +1,4 @@
+import { contextData } from "../context";
 import { nodeData } from "../data/data";
 import { getNextNodeSibling } from "../initializeChildBlock";
 import { type Signal, useEffect } from "../signal/Signal";
@@ -76,11 +77,17 @@ export class SwitchFlow<T> extends ControlFlow {
 			return defaultElement;
 		};
 
+		const dataStack = contextData.save();
+
 		useEffect(() => {
 			const value = this.#value.get();
 			const nextNode = getNextNodeSibling(this);
 
+			const prevStack = contextData.context2DataStack;
+			contextData.context2DataStack = dataStack;
 			const newElement = getElementFromValue(value);
+			contextData.context2DataStack = prevStack;
+
 			// data
 			newElement && nodeData.resolveCallbacks(element, newElement);
 			// insert `newElement`
