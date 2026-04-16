@@ -19,4 +19,17 @@ describe(If, () => {
 			"4",
 		]);
 	});
+	it("takes function as computed", () => {
+		const count = useState(0);
+		const children = [
+			If(
+				() => count.get() % 2 === 0,
+				() => div("even"),
+			),
+		];
+		const element = div(children);
+		expect([...element.childNodes].map((n) => n.textContent)).toEqual(["even"]);
+		count.set(1);
+		expect([...element.childNodes].map((n) => n.textContent)).toEqual([]);
+	});
 });
