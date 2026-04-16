@@ -59,12 +59,17 @@ export class SwitchFlow<T> extends ControlFlow {
 		let currentElement: Element | undefined;
 		let defaultElement: Element | undefined;
 
+		// current data context
+		const dataStack = contextData.cloneStack();
+
 		const getElementFromValue = (value: T) => {
 			const section = value2Section.get(value);
 			if (section) {
 				// If element is not created yet, create and cache
 				if (!value2Element.has(value)) {
-					const newElement = section.show();
+					const newElement = contextData.saveAndRestore(dataStack, () =>
+						section.show(),
+					);
 					value2Element.set(value, newElement);
 				}
 				return value2Element.get(value)!;
@@ -77,15 +82,11 @@ export class SwitchFlow<T> extends ControlFlow {
 			return defaultElement;
 		};
 
-		const dataStack = contextData.cloneStack();
-
 		useEffect(() => {
 			const value = this.#value.get();
 			const nextNode = getNextNodeSibling(this);
 
-			const newElement = contextData.saveAndRestore(dataStack, () =>
-				getElementFromValue(value),
-			);
+			const newElement = getElementFromValue(value);
 
 			// data
 			newElement && nodeData.resolveCallbacks(element, newElement);
