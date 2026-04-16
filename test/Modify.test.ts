@@ -15,18 +15,20 @@ import {
 describe(Modify, () => {
 	describe("text", () => {
 		it("string", () => {
-			$(document.body, {
+			const element = div();
+			$(element, {
 				text: "Hello!",
 			});
-			assert.equal(document.body.textContent, "Hello!");
+			assert.equal(element.textContent, "Hello!");
 		});
 		it("computed", () => {
+			const element = div();
 			const text = useState("Hello!");
-			$(document.body, {
+			$(element, {
 				text: () => text.get(),
 			});
 			text.set("World!");
-			assert.equal(document.body.textContent, "World!");
+			assert.equal(element.textContent, "World!");
 		});
 	});
 	describe("prop", () => {
@@ -54,18 +56,20 @@ describe(Modify, () => {
 
 	describe("attr", () => {
 		it("string", () => {
-			$(document.body, {
+			const element = div();
+			$(element, {
 				attr: { id: "Hello" },
 			});
-			assert.equal(document.body.id, "Hello");
+			assert.equal(element.id, "Hello");
 		});
 		it("function", () => {
+			const element = div();
 			const id = useState("Hello");
-			$(document.body, {
+			$(element, {
 				attr: { id: () => id.get() },
 			});
 			id.set("World");
-			assert.equal(document.body.id, "World");
+			assert.equal(element.id, "World");
 		});
 	});
 	describe("css", () => {
