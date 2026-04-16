@@ -700,7 +700,6 @@ Since `tagu-tagu` is just a helper, you can migrate from anywhere.
 |`$(element).attr("id", "element-id")`|`$(element, { attr: { id: "element-id" } })`|
 |`$(element).prop("checked", true)`|`$(element, { prop: { checked: true } })`|
 |`$(element).on("click", handleClick)`|`$(element, { on: { click: handleClick } })`|
-|`$(element).data("answer", 42)`|`$(element, { data: { answer: 42} })`|
 |`$(element).find("button").text("Hello")`|`$(element, { $$: { button: { text: "Hello" } } })`|
 |`$(element).animate({ width: "50%"}, 1000).animate({ fontSize: "32px" }, 1000)`|`$(element, { css: { width: "50%" }, animate: 1000 }, { css: { "font-size": "32px" }, animate: 1000 })`|
 
