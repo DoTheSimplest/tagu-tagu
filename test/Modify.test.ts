@@ -68,6 +68,24 @@ describe(Modify, () => {
 			assert.equal(document.body.id, "World");
 		});
 	});
+	describe("css", () => {
+		it("string", () => {
+			const element = div();
+			$(element, {
+				css: { background: "blue" },
+			});
+			assert.equal(element.style.background, "blue");
+		});
+		it("function", () => {
+			const element = div();
+			const isBlue = useState(false);
+			$(element, {
+				css: { background: () => (isBlue.get() ? "blue" : "red") },
+			});
+			isBlue.set(true);
+			assert.equal(element.style.background, "blue");
+		});
+	});
 	it("[]", () => {
 		const container = div();
 		$(container, [div("Hello!")]);

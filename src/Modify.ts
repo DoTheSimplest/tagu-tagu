@@ -36,7 +36,7 @@ type ElementPropertyInitializer<TEventType2Event> = {
 		| (() => string | number | boolean)
 	>;
 	prop?: Record<string, any | Signal | Binding>;
-	css?: Record<string, string | Signal | Binding>;
+	css?: Record<string, string | Signal | Binding | (() => string)>;
 	on?: EventListenerRecord<TEventType2Event>;
 	$?: $Record;
 	$$?: $Record;
@@ -118,7 +118,7 @@ function initializeText(
 
 function initializeStyle(
 	element: Element,
-	css: Record<string, string | Signal | Binding> | undefined,
+	css: Record<string, string | Signal | Binding | (() => string)> | undefined,
 ) {
 	const style = (element as any).style;
 	if (!(style instanceof CSSStyleDeclaration)) return;
