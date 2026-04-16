@@ -27,7 +27,7 @@ export class ForMap<T> extends ControlFlow {
 
 		// When list is updated, check diffs.
 		// Create UIs for added models and delete UIs for deleted models.
-		const updateListUI = () => {
+		useEffect(() => {
 			// Added models
 			const itemsAdded = [] as T[];
 			for (const item of this.list.get()) {
@@ -83,8 +83,6 @@ export class ForMap<T> extends ControlFlow {
 			}
 
 			this.firstNode = model2View.get(this.list.get()[0]) ?? null;
-		};
-
-		useEffect(updateListUI);
+		});
 	}
 }
