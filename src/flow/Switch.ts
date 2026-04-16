@@ -60,14 +60,14 @@ export class SwitchFlow<T> extends ControlFlow {
 		let defaultElement: Element | undefined;
 
 		// current data context
-		const dataStack = contextData.cloneContext();
+		const currentContext = contextData.cloneContext();
 
 		const getElementFromValue = (value: T) => {
 			const section = value2Section.get(value);
 			if (section) {
 				// If element is not created yet, create and cache
 				if (!value2Element.has(value)) {
-					const newElement = contextData.saveAndRestore(dataStack, () =>
+					const newElement = contextData.saveAndRestore(currentContext, () =>
 						section.show(),
 					);
 					value2Element.set(value, newElement);
