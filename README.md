@@ -656,6 +656,20 @@ document.body.appendChild(AwaitPromiseOfElementInElementExample());
 
 [JSFiddle](https://jsfiddle.net/do_the_simplest/3xyfjvt2/2/)
 
+### Context
+```typescript
+
+import { div, createContext, useContext } from "tagu-tagu";
+
+const ThemeContext = createContext<string>();
+
+function ContextExample() {
+	const theme = useContext(ThemeContext);
+	return div(theme);
+}
+
+document.body.appendChild(ThemeContext("dark", ContextExample));
+```
 
 ### Data binding
 You can use data of ancestors.
