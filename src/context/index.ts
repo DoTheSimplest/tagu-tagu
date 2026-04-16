@@ -21,7 +21,7 @@ class ContextData {
 		this.context2DataStack.get(context)?.pop();
 	}
 
-	cloneStack() {
+	cloneContext() {
 		const result = new Map<DataContext<any>, any[]>();
 		for (const key of this.context2DataStack.keys()) {
 			const value = this.context2DataStack.get(key);

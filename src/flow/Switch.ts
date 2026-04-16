@@ -60,7 +60,7 @@ export class SwitchFlow<T> extends ControlFlow {
 		let defaultElement: Element | undefined;
 
 		// current data context
-		const dataStack = contextData.cloneStack();
+		const dataStack = contextData.cloneContext();
 
 		const getElementFromValue = (value: T) => {
 			const section = value2Section.get(value);
