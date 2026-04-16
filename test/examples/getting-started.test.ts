@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { useComputed, useState } from "../../src";
+import { useState } from "../../src";
 import { button, div, span, style } from "../../src/Elements";
 import { $ } from "../../src/Modify";
 
@@ -97,7 +97,7 @@ describe("getting started", () => {
 
 		$(document.body, [
 			div({
-				html: useComputed(() => `${count.get()}`),
+				html: () => `${count.get()}`,
 			}),
 			button("-", { on: { click: decrementCount } }),
 			button("+", { on: { click: incrementCount } }),

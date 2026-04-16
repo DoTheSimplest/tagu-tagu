@@ -24,7 +24,7 @@ type $Record = Record<
 >;
 
 type ElementPropertyInitializer<TEventType2Event> = {
-	html?: string | Signal | Binding;
+	html?: string | Signal | Binding | (() => string);
 	text?: string | Signal | Binding;
 	attr?: Record<string, string | number | boolean | Signal | Binding>;
 	prop?: Record<string, any | Signal | Binding>;
@@ -64,12 +64,14 @@ export function applyStringOrSignal<T>(
 	}
 }
 
-function applyStringOrStateOrBinding<T>(
+function applyStringOrStateOrBinding<T extends string | number | boolean>(
 	element: Node,
-	value: T | Signal<T> | Binding<T>,
+	value: T | Signal<T> | Binding<T> | (() => T),
 	initialize: (text: T) => void,
 ) {
-	if (value instanceof Binding) {
+	if (typeof value === "function") {
+		applyStringOrSignal(useComputed(value), initialize);
+	} else if (value instanceof Binding) {
 		waitForData(element, {
 			[value.key]: (data: any) => {
 				const stringOrSignal = isSignal(data)
@@ -86,7 +88,7 @@ function applyStringOrStateOrBinding<T>(
 
 function initializeHtml(
 	element: Element,
-	html: string | Signal | Binding | undefined,
+	html: string | Signal | Binding | (() => string) | undefined,
 ) {
 	if (html !== undefined) {
 		applyStringOrStateOrBinding(element, html, (text) => {
