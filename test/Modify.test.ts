@@ -9,14 +9,25 @@ import {
 	ModifyAll,
 	option,
 	select,
+	useState,
 } from "../src";
 
 describe(Modify, () => {
-	it("text", () => {
-		$(document.body, {
-			text: "Hello!",
+	describe("text", () => {
+		it("string", () => {
+			$(document.body, {
+				text: "Hello!",
+			});
+			assert.equal(document.body.textContent, "Hello!");
 		});
-		assert.equal(document.body.textContent, "Hello!");
+		it("computed", () => {
+			const text = useState("Hello!");
+			$(document.body, {
+				text: () => text.get(),
+			});
+			text.set("World!");
+			assert.equal(document.body.textContent, "World!");
+		});
 	});
 	it("attr", () => {
 		function AttrExample() {

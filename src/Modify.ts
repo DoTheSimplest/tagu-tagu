@@ -25,7 +25,7 @@ type $Record = Record<
 
 type ElementPropertyInitializer<TEventType2Event> = {
 	html?: string | Signal | Binding | (() => string);
-	text?: string | Signal | Binding;
+	text?: string | Signal | Binding | (() => string);
 	attr?: Record<string, string | number | boolean | Signal | Binding>;
 	prop?: Record<string, any | Signal | Binding>;
 	css?: Record<string, string | Signal | Binding>;
@@ -99,7 +99,7 @@ function initializeHtml(
 
 function initializeText(
 	node: Node,
-	text: string | Signal | Binding | undefined,
+	text: string | Signal | Binding | (() => string) | undefined,
 ) {
 	if (text !== undefined) {
 		applyStringOrStateOrBinding(node, text, (text) => {
