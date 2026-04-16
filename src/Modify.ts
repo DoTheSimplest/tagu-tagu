@@ -26,7 +26,15 @@ type $Record = Record<
 type ElementPropertyInitializer<TEventType2Event> = {
 	html?: string | Signal | Binding | (() => string);
 	text?: string | Signal | Binding | (() => string);
-	attr?: Record<string, string | number | boolean | Signal | Binding>;
+	attr?: Record<
+		string,
+		| string
+		| number
+		| boolean
+		| Signal
+		| Binding
+		| (() => string | number | boolean)
+	>;
 	prop?: Record<string, any | Signal | Binding>;
 	css?: Record<string, string | Signal | Binding>;
 	on?: EventListenerRecord<TEventType2Event>;
@@ -126,7 +134,15 @@ function initializeStyle(
 function initializeAttributes(
 	element: Element,
 	attr:
-		| Record<string, string | number | boolean | Signal | Binding>
+		| Record<
+				string,
+				| string
+				| number
+				| boolean
+				| Signal
+				| Binding
+				| (() => string | number | boolean)
+		  >
 		| undefined,
 ) {
 	for (const attrName in attr) {

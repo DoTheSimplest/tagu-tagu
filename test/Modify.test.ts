@@ -51,6 +51,23 @@ describe(Modify, () => {
 			assert.equal(selectElement.selectedIndex, 2);
 		});
 	});
+
+	describe("attr", () => {
+		it("string", () => {
+			$(document.body, {
+				attr: { id: "Hello" },
+			});
+			assert.equal(document.body.id, "Hello");
+		});
+		it("function", () => {
+			const id = useState("Hello");
+			$(document.body, {
+				attr: { id: () => id.get() },
+			});
+			id.set("World");
+			assert.equal(document.body.id, "World");
+		});
+	});
 	it("[]", () => {
 		const container = div();
 		$(container, [div("Hello!")]);
