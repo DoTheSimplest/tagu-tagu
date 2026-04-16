@@ -722,3 +722,5 @@ Since `tagu-tagu` is just a helper, you can migrate from anywhere.
 |`const [counter, setCounter] = useState(0);` | `const counter = useState(0);` 🚦|
 |`useEffect(() => { console.log(counter); }, [counter])` | `useEffect(() => { console.log(counter.get()); })` 🚦|
 |`Suspense` | `Await`|
+|`createContext`|`createContext`|
+|`useContext`|`useContext`|
