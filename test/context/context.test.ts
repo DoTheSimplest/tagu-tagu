@@ -1,6 +1,5 @@
 import { assert, describe, expect, it } from "vitest";
-import { div, For, If, useState } from "../../src";
-import { createContext, useContext } from "../../src/context";
+import { createContext, div, For, If, useContext, useState } from "../../src";
 
 describe("context", () => {
 	it("is used in component", async () => {

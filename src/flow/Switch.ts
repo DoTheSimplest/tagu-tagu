@@ -1,4 +1,4 @@
-import { contextData } from "../context";
+import { contextData } from "../context/internal";
 import { getNextNodeSibling } from "../initializeChildBlock";
 import { type Signal, useComputed, useEffect } from "../signal/Signal";
 
