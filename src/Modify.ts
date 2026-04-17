@@ -1,5 +1,3 @@
-import { type DataRecord, initializeData, waitForData } from "./data/data";
-import { Binding } from "./data/useBinding";
 import { type ChildType, initializeChildBlock } from "./initializeChildBlock";
 import { isSignal, type Signal, useComputed, useEffect } from "./signal/Signal";
 
@@ -11,7 +9,6 @@ type EventListenerType<
 type EventListenerRecord<TEventType2Event> = {
 	[TEventType in keyof TEventType2Event]?:
 		| EventListenerType<TEventType2Event, TEventType>
-		| Binding
 		| {
 				listener: EventListenerType<TEventType2Event, TEventType>;
 				options: boolean | AddEventListenerOptions;
@@ -24,23 +21,17 @@ type $Record = Record<
 >;
 
 type ElementPropertyInitializer<TEventType2Event> = {
-	html?: string | Signal | Binding | (() => string);
-	text?: string | Signal | Binding | (() => string);
+	html?: string | Signal | (() => string);
+	text?: string | Signal | (() => string);
 	attr?: Record<
 		string,
-		| string
-		| number
-		| boolean
-		| Signal
-		| Binding
-		| (() => string | number | boolean)
+		string | number | boolean | Signal | (() => string | number | boolean)
 	>;
-	prop?: Record<string, any | Signal | Binding>;
-	css?: Record<string, string | Signal | Binding | (() => string)>;
+	prop?: Record<string, any | Signal>;
+	css?: Record<string, string | Signal | (() => string)>;
 	on?: EventListenerRecord<TEventType2Event>;
 	$?: $Record;
 	$$?: $Record;
-	data?: DataRecord;
 	animate?: number | AnimationOptions;
 };
 
@@ -74,21 +65,11 @@ export function applyStringOrSignal<T>(
 
 function applyStringOrStateOrBinding<T extends string | number | boolean>(
 	element: Node,
-	value: T | Signal<T> | Binding<T> | (() => T),
+	value: T | Signal<T> | (() => T),
 	initialize: (text: T) => void,
 ) {
 	if (typeof value === "function") {
 		applyStringOrSignal(useComputed(value), initialize);
-	} else if (value instanceof Binding) {
-		waitForData(element, {
-			[value.key]: (data: any) => {
-				const stringOrSignal = isSignal(data)
-					? useComputed(() => value.map(data.get()))
-					: value.map(data);
-
-				applyStringOrSignal(stringOrSignal, initialize);
-			},
-		});
 	} else {
 		applyStringOrSignal(value, initialize);
 	}
@@ -96,7 +77,7 @@ function applyStringOrStateOrBinding<T extends string | number | boolean>(
 
 function initializeHtml(
 	element: Element,
-	html: string | Signal | Binding | (() => string) | undefined,
+	html: string | Signal | (() => string) | undefined,
 ) {
 	if (html !== undefined) {
 		applyStringOrStateOrBinding(element, html, (text) => {
@@ -107,7 +88,7 @@ function initializeHtml(
 
 function initializeText(
 	node: Node,
-	text: string | Signal | Binding | (() => string) | undefined,
+	text: string | Signal | (() => string) | undefined,
 ) {
 	if (text !== undefined) {
 		applyStringOrStateOrBinding(node, text, (text) => {
@@ -118,7 +99,7 @@ function initializeText(
 
 function initializeStyle(
 	element: Element,
-	css: Record<string, string | Signal | Binding | (() => string)> | undefined,
+	css: Record<string, string | Signal | (() => string)> | undefined,
 ) {
 	const style = (element as any).style;
 	if (!(style instanceof CSSStyleDeclaration)) return;
@@ -136,12 +117,7 @@ function initializeAttributes(
 	attr:
 		| Record<
 				string,
-				| string
-				| number
-				| boolean
-				| Signal
-				| Binding
-				| (() => string | number | boolean)
+				string | number | boolean | Signal | (() => string | number | boolean)
 		  >
 		| undefined,
 ) {
@@ -159,7 +135,7 @@ function initializeAttributes(
 
 function initializeProps(
 	element: Node,
-	prop: Record<string, any | Signal | Binding> | undefined,
+	prop: Record<string, any | Signal> | undefined,
 ) {
 	for (const key in prop) {
 		const value = prop[key];
@@ -208,13 +184,6 @@ function initializeEventListeners<TEventType2Event>(
 		if (!listener) continue;
 		if (typeof listener === "function") {
 			element.addEventListener(eventName, listener as EventListener);
-		} else if (listener instanceof Binding) {
-			waitForData(element, {
-				[listener.key]: (data) => {
-					const func = listener.map(data);
-					element.addEventListener(eventName, func);
-				},
-			});
 		} else {
 			element.addEventListener(
 				eventName,
@@ -240,7 +209,6 @@ function initializePropertyInitializerWithoutOwnAnimation<
 	const result$ = initialize$(element, initializer.$);
 	const result$$ = initialize$$(element, initializer.$$);
 	initializeEventListeners(element, initializer.on);
-	initializeData(element, initializer.data);
 	return extractPromiseAll([result$, result$$]);
 }
 

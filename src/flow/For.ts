@@ -1,5 +1,4 @@
 import { contextData } from "../context";
-import { nodeData } from "../data/data";
 import { getNextNodeSibling } from "../initializeChildBlock";
 import { type Signal, useEffect } from "../signal/Signal";
 import { ControlFlow } from "./ControlFlow";
@@ -49,9 +48,6 @@ export class ForMap<T> extends ControlFlow {
 				);
 				const resolved =
 					typeof mapped === "string" ? document.createTextNode(mapped) : mapped;
-
-				// data
-				nodeData.resolveCallbacks(element, resolved);
 
 				// To insert `item`
 				view2Model.set(resolved, item);

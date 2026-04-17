@@ -1,5 +1,4 @@
 import { contextData } from "../context";
-import { nodeData } from "../data/data";
 import { getNextNodeSibling } from "../initializeChildBlock";
 import { type Signal, useComputed, useEffect } from "../signal/Signal";
 
@@ -88,8 +87,6 @@ export class SwitchFlow<T> extends ControlFlow {
 
 			const newElement = getElementFromValue(value);
 
-			// data
-			newElement && nodeData.resolveCallbacks(element, newElement);
 			// insert `newElement`
 			currentElement?.remove();
 			newElement && element.insertBefore(newElement, nextNode);
