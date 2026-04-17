@@ -671,37 +671,6 @@ function ContextExample() {
 document.body.appendChild(ThemeContext("dark", ContextExample));
 ```
 
-### Data binding
-You can use data of ancestors.
-
-```typescript
-import { button, div, useBinding, useState } from "tagu-tagu";
-
-function Sky() {
-	return div("Sky", {
-		css: {
-			background: useBinding("theme", (theme) =>
-				theme === "dark" ? "darkblue" : "skyblue",
-			),
-		},
-	});
-}
-
-function DataBindingExample() {
-	const theme = useState("dark" as "dark" | "light");
-
-	return div({ data: { theme } }, [
-		Sky(),
-		button("dark", { on: { click: () => theme.set("dark") } }),
-		button("light", { on: { click: () => theme.set("light") } }),
-	]);
-}
-
-document.body.appendChild(DataBindingExample());
-
-```
-[JSFiddle](https://jsfiddle.net/do_the_simplest/9u6oz2bc/6/)
-
 ## Seamless migration
 Since `tagu-tagu` is just a helper, you can migrate from anywhere.
 

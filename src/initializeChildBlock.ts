@@ -1,4 +1,3 @@
-import { nodeData } from "./data/data";
 import { ControlFlow } from "./flow/ControlFlow";
 import { applyStringOrSignal } from "./Modify";
 import { isSignal, type Signal } from "./signal/Signal";
@@ -24,7 +23,6 @@ function initializeChild(element: Element, child: ControlFlow | Node) {
 	if (child instanceof ControlFlow) {
 		child.run(element);
 	} else {
-		nodeData.resolveCallbacks(element, child);
 		element.appendChild(child);
 	}
 }
