@@ -17,6 +17,7 @@
 		"url": "git+https://github.com/DoTheSimplest/tagu-tagu.git"
 	},
 	"author": "DoTheSimplest",
+	"license": "MIT",
 	"type": "module",
 	"main": "src/index.ts",
 	"files": [
