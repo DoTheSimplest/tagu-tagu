@@ -170,44 +170,6 @@ document.body.appendChild(OnExample());
 ```
 [JSFiddle](https://jsfiddle.net/do_the_simplest/Lsjmw263/)
 
-#### `data` initializer
-
-```typescript
-import { div, waitForData } from "tagu-tagu";
-
-function DataExample() {
-	return div({ data: { "my-data-key": "Hello World!" } });
-}
-
-const element = DataExample();
-console.log(await waitForData(element, "my-data-key")); // Hello World!
-```
-[JSFiddle](https://jsfiddle.net/do_the_simplest/9cLtyzkm/1/)
-
-```typescript
-import { div, $, waitForData } from "tagu-tagu";
-
-/**
- * Node can get data from ancestors.
- * Node can't get data from descendants.
- * */
-function DataFromParentExample() {
-	const parent = div();
-	const element = div({ data: { "my-data-key": "Hello World!" } });
-	const child = div();
-	waitForData(parent, "my-data-key").then((data) => {
-		parent.textContent = `Parent: ${data}`; // never
-	});
-	waitForData(child, "my-data-key").then((data) => {
-		child.textContent = `Child: ${data}`; // displayed
-	});
-	return $(parent, [$(element, [child])]);
-}
-
-document.body.appendChild(DataFromParentExample());
-```
-[JSFiddle](https://jsfiddle.net/do_the_simplest/eh7bdrvL/7/)
-
 #### Modify existing element
 You can use initializers for existing element.
 
